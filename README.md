@@ -26,17 +26,25 @@ Administratoriai gali:
 •	Ištrinti nekorektiškus atsiliepimus
 
 Registruoti lankytojai gali:
+
 •	Peržiūrėti prekių rūšis ir jose esančias prekes.
+
 •	Peržiūrėti prekių atsiliepimus.
+
 •	Rašyti/ištrinti/redaguoti savo atsiliepimą.
+
 •	Įvertinti kitų atsiliepimus patinka/nepatinka mygtukais.
 
 Neregistruoti lankytojai gali:
+
 •	Peržiūrėti prekių rūšis ir jose esančias prekes.
+
 •	Peržiūrėti prekių atsiliepimus.
 
 2.	Pasirinktų technologijų aprašymas
 Sistemos sudedamosios dalys:
+
 •	Front-end – react.js
+
 •	Back-end – node.js ir MySQL duomenų bazė.
 
