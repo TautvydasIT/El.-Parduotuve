@@ -10,12 +10,19 @@ Veikimo principas – internetinis puslapis, kuriame rodomos prekių rūšys, pa
 Sistema privalo turėti grafinę naudotojo sąsają, kuri leistų užsiregistruoti ar prisijungti prie savo paskyros, peržiūrėti prekes, palikti atsiliepimus. Sistema turi būti pasiekiama saityne, taip pat ji turi palaikyti tris roles – administratorių, neregistruotą lankytoją ir prisijungusį lankytoją, kiekvienam iš jų suteikti skirtingas prieigas. 
 
 Administratoriai gali:
+
 •	Sukurti naują prekių rūšį.
+
 •	Pašalinti egzistuojančią prekių rūšį.
+
 •	Redaguoti egzistuojančią prekių rūšį.
+
 •	Pridėti naujų prekių.
+
 •	Pašalinti esamas prekes.
+
 •	Redaguoti esamas prekes.
+
 •	Ištrinti nekorektiškus atsiliepimus
 
 Registruoti lankytojai gali:
