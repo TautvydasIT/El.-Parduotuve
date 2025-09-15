@@ -42,6 +42,7 @@ Neregistruoti lankytojai gali:
 •	Peržiūrėti prekių atsiliepimus.
 
 2.	Pasirinktų technologijų aprašymas
+
 Sistemos sudedamosios dalys:
 
 •	Front-end – react.js
