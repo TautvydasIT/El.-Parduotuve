@@ -1,0 +1,342 @@
+openapi: 3.0.0
+info:
+  title: eShop API
+  version: 1.0.0
+  description: REST API for Lab 1 project - types, products, reviews
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+  # ----------------- TYPES -----------------
+  /api/types:
+    get:
+      summary: Get all types
+      responses:
+        '200':
+          description: List of all types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+    post:
+      summary: Create a new type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+      responses:
+        '201':
+          description: Created type
+        '400':
+          description: Invalid payload
+
+  /api/types/{id}:
+    get:
+      summary: Get a single type
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Type object
+        '404':
+          description: Type not found
+    put:
+      summary: Update a type
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+      responses:
+        '200':
+          description: Type updated
+        '400':
+          description: Invalid payload
+        '404':
+          description: Type not found
+    delete:
+      summary: Delete a type
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '204':
+          description: Type deleted
+        '404':
+          description: Type not found
+
+  /api/types/{id}/products:
+    get:
+      summary: Get all products of a specific type
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: List of products
+        '404':
+          description: Type not found
+
+  # ----------------- PRODUCTS -----------------
+  /api/products:
+    get:
+      summary: Get all products
+      responses:
+        '200':
+          description: List of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    type_id:
+                      type: integer
+                    brand:
+                      type: string
+                    name:
+                      type: string
+                    price:
+                      type: number
+    post:
+      summary: Create a new product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - type_id
+                - brand
+                - name
+                - price
+              properties:
+                type_id:
+                  type: integer
+                brand:
+                  type: string
+                name:
+                  type: string
+                price:
+                  type: number
+      responses:
+        '201':
+          description: Product created
+        '400':
+          description: Invalid payload
+
+  /api/products/{id}:
+    get:
+      summary: Get a single product
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Product object
+        '404':
+          description: Product not found
+    put:
+      summary: Update a product
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - type_id
+                - brand
+                - name
+                - price
+              properties:
+                type_id:
+                  type: integer
+                brand:
+                  type: string
+                name:
+                  type: string
+                price:
+                  type: number
+      responses:
+        '200':
+          description: Product updated
+        '400':
+          description: Invalid payload
+        '404':
+          description: Product not found
+    delete:
+      summary: Delete a product
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '204':
+          description: Product deleted
+        '404':
+          description: Product not found
+
+  /api/products/{id}/reviews:
+    get:
+      summary: Get all reviews of a specific product
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: List of reviews
+        '404':
+          description: Product not found
+
+  # ----------------- REVIEWS -----------------
+  /api/reviews:
+    get:
+      summary: Get all reviews
+      responses:
+        '200':
+          description: List of all reviews
+    post:
+      summary: Create a new review
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - product_id
+                - author
+                - rating
+              properties:
+                product_id:
+                  type: integer
+                author:
+                  type: string
+                rating:
+                  type: integer
+                comment:
+                  type: string
+      responses:
+        '201':
+          description: Review created
+        '400':
+          description: Invalid payload
+
+  /api/reviews/{id}:
+    get:
+      summary: Get a single review
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Review object
+        '404':
+          description: Review not found
+    put:
+      summary: Update a review
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - product_id
+                - author
+                - rating
+                - comment
+              properties:
+                product_id:
+                  type: integer
+                author:
+                  type: string
+                rating:
+                  type: integer
+                comment:
+                  type: string
+      responses:
+        '200':
+          description: Review updated
+        '400':
+          description: Invalid payload
+        '404':
+          description: Review not found
+    delete:
+      summary: Delete a review
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '204':
+          description: Review deleted
+        '404':
+          description: Review not found
