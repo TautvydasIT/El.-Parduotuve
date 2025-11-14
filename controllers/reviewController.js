@@ -83,7 +83,7 @@ export const updateReview = async (req, res) => {
 
 
 // DELETE /api/reviews/:id
-/*export const deleteReview = async (req, res) => {
+export const deleteReview = async (req, res) => {
   try {
     const [result] = await db.query("DELETE FROM reviews WHERE id = ?", [req.params.id]);
     if (result.affectedRows === 0)
@@ -97,12 +97,12 @@ export const updateReview = async (req, res) => {
 // POST /api/reviews/:id/like
 export const likeReview = async (req, res) => {
   const reviewId = req.params.id;
+
   try {
-    const [result] = await db.query(
-      "UPDATE reviews SET likes = likes + 1 WHERE id = ?",
+    await db.query(
+      `INSERT INTO review_votes (review_id, vote) VALUES (?, 1)`,
       [reviewId]
     );
-    if (result.affectedRows === 0) return res.status(404).json({ message: "Review not found" });
     res.status(200).json({ message: "Liked review" });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -112,14 +112,49 @@ export const likeReview = async (req, res) => {
 // POST /api/reviews/:id/dislike
 export const dislikeReview = async (req, res) => {
   const reviewId = req.params.id;
+
   try {
-    const [result] = await db.query(
-      "UPDATE reviews SET dislikes = dislikes + 1 WHERE id = ?",
+    await db.query(
+      `INSERT INTO review_votes (review_id, vote) VALUES (?, -1)`,
       [reviewId]
     );
-    if (result.affectedRows === 0) return res.status(404).json({ message: "Review not found" });
     res.status(200).json({ message: "Disliked review" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};*/
+};
+
+// DELETE /api/reviews/:id/vote
+export const removeVote = async (req, res) => {
+  const reviewId = req.params.id;
+
+  try {
+    await db.query(
+      `DELETE FROM review_votes WHERE review_id = ?`,
+      [reviewId]
+    );
+    res.status(200).json({ message: "Vote removed" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// GET /api/reviews/:id/votes
+export const getReviewVotes = async (req, res) => {
+  const reviewId = req.params.id;
+
+  try {
+    const [rows] = await db.query(
+      `SELECT 
+        SUM(vote = 1) AS likes,
+        SUM(vote = -1) AS dislikes
+       FROM review_votes
+       WHERE review_id = ?`,
+      [reviewId]
+    );
+
+    res.status(200).json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
