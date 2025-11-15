@@ -6,7 +6,7 @@ import './App.css'
 function App() {
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>My React Frontend</h1>
+      <h1>Projektas elektroninė parduotuvė</h1>
     </div>
   );
 }

@@ -7,14 +7,15 @@ import {
   deleteProduct,
   getReviewsByProduct,
 } from "../controllers/productController.js";
+import { authenticate, authorize } from "../middleware/auth.js";
 
 const router = express.Router();
 
 router.get("/", getAllProducts);
 router.get("/:id/reviews", getReviewsByProduct)
 router.get("/:id", getProductById);
-router.post("/", createProduct);
-router.put("/:id", updateProduct);
-router.delete("/:id", deleteProduct);
+router.post("/", authenticate, authorize("admin"), createProduct);
+router.put("/:id", authenticate, authorize("admin"), updateProduct);
+router.delete("/:id", authenticate, authorize("admin"), deleteProduct);
 
 export default router;
