@@ -30,6 +30,9 @@ export const createType = async (req, res) => {
     const [result] = await db.query("INSERT INTO types (name) VALUES (?)", [name]);
     res.status(201).json({ id: result.insertId, name });
   } catch (err) {
+     if (err.code === "ER_DUP_ENTRY") {
+    return res.status(409).json({ message: "Type with this name already exists" });
+  }
     res.status(500).json({ error: err.message });
   }
 };

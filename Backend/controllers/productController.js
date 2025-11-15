@@ -51,6 +51,9 @@ export const createProduct = async (req, res) => {
     );
     res.status(201).json({ id: result.insertId, name, type_id, price });
   } catch (err) {
+     if (err.code === "ER_DUP_ENTRY") {
+    return res.status(409).json({ message: "Product with this name and brand already exists" });
+  }
     res.status(500).json({ error: err.message });
   }
 };
