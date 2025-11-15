@@ -7,9 +7,9 @@ const JWT_SECRET = process.env.JWT_SECRET;
 // Register new user
 export const registerUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    if (!email || !password)
-      return res.status(400).json({ message: "Email and password required" });
+    const { email, password, name } = req.body;
+    if (!email || !password || !name)
+      return res.status(400).json({ message: "Email, password and username required" });
 
     // Check if user exists
     const [existing] = await db.query("SELECT * FROM users WHERE email = ?", [email]);
@@ -19,11 +19,11 @@ export const registerUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const [result] = await db.query(
-      "INSERT INTO users (email, password_hash, role) VALUES (?, ?, ?)",
-      [email, hashedPassword, "user"]
+      "INSERT INTO users (email, password_hash, role, name) VALUES (?, ?, ?, ?)",
+      [email, hashedPassword, "user", name]
     );
 
-    res.status(201).json({ id: result.insertId, email, role: "user" });
+    res.status(201).json({ id: result.insertId, email, role: "user", name });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
