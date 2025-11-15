@@ -7,8 +7,8 @@ const router = express.Router();
 router.get("/", getTypes);
 router.get("/:id/products", getProductsByType)
 router.get("/:id", getType);
-router.post("/", authenticate, authorize("user"), createType);
-router.put("/:id", authenticate, authorize("user"), updateType);
-router.delete("/:id", authenticate, authorize("user"), deleteType);
+router.post("/", authenticate, authorize("admin"), createType);
+router.put("/:id", authenticate, authorize("admin"), updateType);
+router.delete("/:id", authenticate, authorize("admin"), deleteType);
 
 export default router;
