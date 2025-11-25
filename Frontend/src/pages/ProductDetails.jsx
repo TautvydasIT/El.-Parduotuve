@@ -1,11 +1,13 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
+import { UserContext } from "../context/UserContext";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 
 export default function ProductDetails() {
   const { productId } = useParams();
+  const { user } = useContext(UserContext);
   const [product, setProduct] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,7 +17,6 @@ export default function ProductDetails() {
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(5);
   const [submitting, setSubmitting] = useState(false);
-  const token = localStorage.getItem("token"); // JWT token
 
   // Fetch product details
   useEffect(() => {
@@ -23,20 +24,19 @@ export default function ProductDetails() {
     axios
       .get(`${API_BASE}/products/${productId}`)
       .then(res => setProduct(res.data))
-      .catch(err => setError("Failed to load product"))
+      .catch(() => setError("Failed to load product"))
       .finally(() => setLoading(false));
   }, [productId]);
 
   // Fetch reviews for this product
   useEffect(() => {
-  if (!product?.type_id) return; // Wait until product is loaded
+    if (!product?.type_id) return; // Wait until product is loaded
 
-  axios
-    .get(`${API_BASE}/types/${product.type_id}/products/${productId}/reviews`)
-    .then(res => setReviews(res.data || []))
-    .catch(err => console.error(err));
-}, [product, productId]);
-
+    axios
+      .get(`${API_BASE}/types/${product.type_id}/products/${productId}/reviews`)
+      .then(res => setReviews(res.data || []))
+      .catch(err => console.error(err));
+  }, [product, productId]);
 
   // Submit review
   const handleReviewSubmit = async (e) => {
@@ -45,12 +45,22 @@ export default function ProductDetails() {
     setSubmitting(true);
 
     try {
+      const token = localStorage.getItem("token");
       const res = await axios.post(
         `${API_BASE}/reviews`,
         { product_id: Number(productId), comment, rating },
-        { headers: { Authorization: `Bearer ${token}` } } // send JWT token
+        { headers: { Authorization: `Bearer ${token}` } }
       );
-      setReviews(prev => [...prev, res.data]);
+
+      // Append new review with current user's name
+      setReviews(prev => [
+        ...prev,
+        {
+          ...res.data,
+          user_name: user?.name || "You"
+        }
+      ]);
+
       setComment("");
       setRating(5);
     } catch (err) {
@@ -91,7 +101,7 @@ export default function ProductDetails() {
           <ul className="space-y-4">
             {reviews.map(r => (
               <li key={r.id} className="border p-3 rounded-md bg-gray-50">
-                <p className="font-medium">{r.author || "Anonymous"}</p>
+                <p className="font-medium">{r.user_name || "Anonymous"}</p>
                 <p className="text-gray-600 text-sm">{r.comment}</p>
                 {r.rating && <p className="text-yellow-500 text-sm">⭐ {r.rating}</p>}
               </li>
@@ -101,7 +111,7 @@ export default function ProductDetails() {
       </section>
 
       {/* Review Form (only if logged in) */}
-      {token ? (
+      {user ? (
         <section className="mt-6">
           <h3 className="text-xl font-semibold mb-2">Write a Review</h3>
           <form onSubmit={handleReviewSubmit} className="space-y-3">
