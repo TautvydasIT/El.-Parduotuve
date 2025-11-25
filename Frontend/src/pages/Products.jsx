@@ -9,10 +9,14 @@ export default function Products() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get(`${API_BASE}/types/${typeId}/products`)
-      .then(res => setProducts(res.data))
-      .catch(console.error);
-  }, [typeId]);
+  console.log("Fetching products for typeId:", typeId);
+  axios.get(`${API_BASE}/types/${typeId}/products`)
+    .then(res => {
+      console.log("Products response:", res.data);
+      setProducts(res.data);
+    })
+    .catch(console.error);
+}, [typeId]);
 
   if (!products.length) return <div>No products found</div>;
 
