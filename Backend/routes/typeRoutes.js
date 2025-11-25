@@ -5,7 +5,7 @@ import { authenticate, authorize } from "../middleware/auth.js";
 const router = express.Router();
 
 router.get("/", getTypes);
-router.get("/:id/products/:id/reviews", getReviewsByProduct)
+router.get("/:typeId/products/:productId/reviews", getReviewsByProduct);
 router.get("/:id/products", getProductsByType)
 router.get("/:id", getType);
 router.post("/", authenticate, authorize("admin"), createType);
