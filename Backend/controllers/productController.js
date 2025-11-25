@@ -23,19 +23,6 @@ export const getProductById = async (req, res) => {
   }
 };
 
-// GET /api/products/:id/reviews
-export const getReviewsByProduct = async (req, res) => {
-  const productId = req.params.id;
-  try {
-    const [productResults] = await db.query("SELECT * FROM products WHERE id=?", [productId]);
-    if (productResults.length === 0) return res.status(404).json({ message: "Product not found" });
-
-    const [reviewResults] = await db.query("SELECT * FROM reviews WHERE product_id=?", [productId]);
-    res.status(200).json(reviewResults);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
 
 
 // POST /api/products

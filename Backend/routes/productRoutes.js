@@ -5,14 +5,12 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
-  getReviewsByProduct,
 } from "../controllers/productController.js";
 import { authenticate, authorize } from "../middleware/auth.js";
 
 const router = express.Router();
 
 router.get("/", getAllProducts);
-router.get("/:id/reviews", getReviewsByProduct)
 router.get("/:id", getProductById);
 router.post("/", authenticate, authorize("admin"), createProduct);
 router.put("/:id", authenticate, authorize("admin"), updateProduct);

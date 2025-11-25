@@ -10,6 +10,42 @@ export const getTypes = async (req, res) => {
   }
 };
 
+// GET /api/types/:typeId/products/:productId/reviews
+export const getReviewsByProduct = async (req, res) => {
+  const { typeId, productId } = req.params;
+
+  try {
+    // 1. Check if type exists
+    const [typeResults] = await db.query(
+      "SELECT * FROM types WHERE id = ?",
+      [typeId]
+    );
+    if (typeResults.length === 0)
+      return res.status(404).json({ message: "Type not found" });
+
+    // 2. Check if product exists and belongs to this type
+    const [productResults] = await db.query(
+      "SELECT * FROM products WHERE id = ? AND type_id = ?",
+      [productId, typeId]
+    );
+
+    if (productResults.length === 0)
+      return res.status(404).json({ message: "Product not found in this type" });
+
+    // 3. Fetch all reviews for this product
+    const [reviewResults] = await db.query(
+      "SELECT * FROM reviews WHERE product_id = ?",
+      [productId]
+    );
+
+    res.status(200).json(reviewResults);
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
 // GET /api/types/:id
 export const getType = async (req, res) => {
   try {
