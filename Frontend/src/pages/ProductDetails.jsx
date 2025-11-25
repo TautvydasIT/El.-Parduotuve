@@ -12,30 +12,35 @@ export default function ProductDetails() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    let mounted = true;
-    setLoading(true);
+  setLoading(true);
+  setError(null);
 
-    // Fetch product details
-    const fetchProduct = axios.get(`${API_BASE}/products/${productId}`);
-    // Fetch product reviews
-    const fetchReviews = axios.get(`${API_BASE}/products/${productId}/reviews`);
+  axios.get(`${API_BASE}/products/${productId}`)
+    .then(res => {
+      setProduct(res.data);
+      setLoading(false);
+    })
+    .catch(err => {
+      setError("Failed to load product");
+      setLoading(false);
+    });
+}, [productId]);
 
-    Promise.all([fetchProduct, fetchReviews])
-      .then(([prodRes, revRes]) => {
-        if (!mounted) return;
-        setProduct(prodRes.data);
-        // Backend might return {reviews: [...]}, adjust if necessary
-        setReviews(revRes.data.reviews || revRes.data || []);
-      })
-      .catch(err => {
-        if (!mounted) return;
-        console.error(err);
-        setError(err.message || "Failed to load product");
-      })
-      .finally(() => mounted && setLoading(false));
+// Fetch reviews AFTER product is loaded
+useEffect(() => {
+  if (!product?.type_id) return; // Wait until product is fetched
 
-    return () => (mounted = false);
-  }, [productId]);
+  axios
+    .get(`${API_BASE}/types/${product.type_id}/products/${productId}/reviews`)
+    .then(res => {
+      setReviews(res.data.reviews || res.data || []);
+    })
+    .catch(err => {
+      console.error(err);
+      setReviews([]);
+    });
+}, [product]);
+
 
   if (loading) return <div className="py-10 text-center">Loading...</div>;
   if (error) return <div className="py-10 text-center text-red-600">{error}</div>;
