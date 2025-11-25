@@ -44,7 +44,7 @@ export default function ProductDetails() {
 
     try {
       const res = await axios.post(
-        `${API_BASE}/types/${product.type_id}/products/${productId}/reviews`,
+        `${API_BASE}/products/${productId}/reviews`,
         { comment, rating },
         { headers: { Authorization: `Bearer ${token}` } } // send token
       );

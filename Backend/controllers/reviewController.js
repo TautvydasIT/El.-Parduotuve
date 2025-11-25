@@ -26,7 +26,9 @@ export const getReviewById = async (req, res) => {
 // POST /api/reviews
 export const createReview = async (req, res) => {
   try {
-    const { product_id, author, rating, comment } = req.body;
+    const { rating, comment } = req.body;
+    const author = req.user.name;       // from JWT token
+    const product_id = req.params.productId; // from URL
     if (!product_id || typeof product_id !== 'number'  || !author || !rating )
       return res.status(400).json({ message: "product_id, author, rating is required" });
 
