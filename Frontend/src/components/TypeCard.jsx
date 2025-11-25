@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function TypeCard({ type }) {
   return (
@@ -13,8 +14,9 @@ export default function TypeCard({ type }) {
       <h3 className="mt-4 font-semibold text-lg">{type.name}</h3>
       <p className="mt-2 text-sm text-gray-500 flex-1">{type.description || "No description"}</p>
       <div className="mt-4 flex items-center justify-between">
-        <a href={`/types/${type.id}/products`} className="text-sm font-medium text-indigo-600 hover:underline">Browse products</a>
-        <span className="text-sm text-gray-400">{type.product_count ?? "–"} items</span>
+        <Link to={`/types/${type.id}/products`} className="text-sm font-medium text-indigo-600 hover:underline">
+  Browse products
+</Link>
       </div>
     </motion.article>
   );
