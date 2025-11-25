@@ -30,7 +30,9 @@ function Header() {
     <header className="bg-white border-b shadow-sm">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="rounded-xl bg-indigo-600 text-white px-3 py-2 font-bold">E‑Shop</div>
+          <a href="/" className="rounded-xl bg-indigo-600 text-white px-3 py-2 font-bold cursor-pointer hover:bg-indigo-700 transition">
+  E‑Shop
+</a>
           <nav className="hidden md:flex gap-4 items-center">
             <a className="text-sm hover:text-indigo-600 transition" href="#">Home</a>
             <a className="text-sm hover:text-indigo-600 transition" href="#types">Types</a>
@@ -42,7 +44,7 @@ function Header() {
           <div className="hidden md:flex items-center gap-3">
             <div className="hidden md:flex items-center gap-3">
     <button
-      className="bg-indigo-600 text-white px-4 py-2 rounded-md font-semibold shadow hover:bg-indigo-700 hover:shadow-lg transition"
+      className="bg-indigo-600 text-white px-4 py-2 rounded-md font-semibold shadow hover:bg-indigo-700 hover:shadow-lg transition cursor-pointer"
       onClick={() => setShowAuth(true)}
     >
       <User size={16} />
@@ -50,7 +52,7 @@ function Header() {
     </button>
 
     <button
-      className="bg-indigo-600 text-white px-4 py-2 rounded-md font-semibold shadow hover:bg-indigo-700 hover:shadow-lg transition">
+      className="bg-indigo-600 text-white px-4 py-2 rounded-md font-semibold shadow hover:bg-indigo-700 hover:shadow-lg transition cursor-pointer">
       <ShoppingCart size={16} />
       <span className="text-sm">Cart</span>
     </button>
