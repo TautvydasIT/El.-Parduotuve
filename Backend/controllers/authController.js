@@ -179,16 +179,17 @@ export const logoutUser = async (req, res) => {
 export const getCurrentUser = async (req, res) => {
   try {
     const userId = req.user.id; // set by authenticateToken middleware
-    const result = await pool.query(
+    const [rows] = await db.query(
       "SELECT id, name, email FROM users WHERE id = ?",
       [userId]
     );
 
-    if (result.rows.length === 0) return res.status(404).json({ message: "User not found" });
+    if (rows.length === 0) return res.status(404).json({ message: "User not found" });
 
-    res.json(result.rows[0]);
+    res.json(rows[0]);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 };
+
