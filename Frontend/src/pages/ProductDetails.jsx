@@ -11,13 +11,13 @@ export default function ProductDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Form state
+  // Review form state
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(5);
   const [submitting, setSubmitting] = useState(false);
-  const token = localStorage.getItem("token"); // Simple auth check
+  const token = localStorage.getItem("token"); // JWT token
 
-  // Fetch product
+  // Fetch product details
   useEffect(() => {
     setLoading(true);
     axios
@@ -27,14 +27,13 @@ export default function ProductDetails() {
       .finally(() => setLoading(false));
   }, [productId]);
 
-  // Fetch reviews
+  // Fetch reviews for this product
   useEffect(() => {
-    if (!product?.type_id) return;
     axios
-      .get(`${API_BASE}/types/${product.type_id}/products/${productId}/reviews`)
-      .then(res => setReviews(res.data.reviews || res.data || []))
+      .get(`${API_BASE}/reviews?product_id=${productId}`)
+      .then(res => setReviews(res.data || []))
       .catch(err => console.error(err));
-  }, [product]);
+  }, [productId]);
 
   // Submit review
   const handleReviewSubmit = async (e) => {
@@ -44,11 +43,11 @@ export default function ProductDetails() {
 
     try {
       const res = await axios.post(
-        `${API_BASE}/products/${productId}/reviews`,
-        { comment, rating },
-        { headers: { Authorization: `Bearer ${token}` } } // send token
+        `${API_BASE}/reviews`,
+        { product_id: Number(productId), comment, rating },
+        { headers: { Authorization: `Bearer ${token}` } } // send JWT token
       );
-      setReviews(prev => [...prev, res.data]); // Append new review
+      setReviews(prev => [...prev, res.data]);
       setComment("");
       setRating(5);
     } catch (err) {
@@ -89,7 +88,7 @@ export default function ProductDetails() {
           <ul className="space-y-4">
             {reviews.map(r => (
               <li key={r.id} className="border p-3 rounded-md bg-gray-50">
-                <p className="font-medium">{r.user_name || "Anonymous"}</p>
+                <p className="font-medium">{r.author || "Anonymous"}</p>
                 <p className="text-gray-600 text-sm">{r.comment}</p>
                 {r.rating && <p className="text-yellow-500 text-sm">⭐ {r.rating}</p>}
               </li>

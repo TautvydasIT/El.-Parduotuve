@@ -26,23 +26,33 @@ export const getReviewById = async (req, res) => {
 // POST /api/reviews
 export const createReview = async (req, res) => {
   try {
-    const { rating, comment } = req.body;
-    const author = req.user.name;       // from JWT token
-    const product_id = req.params.productId; // from URL
-    if (!product_id || typeof product_id !== 'number'  || !author || !rating )
-      return res.status(400).json({ message: "product_id, author, rating is required" });
+    const { product_id, rating, comment } = req.body;
+    const userId = req.user.id; // from JWT token after authentication
 
-    if (typeof rating !== 'number' || rating < 1 || rating > 5)
-      return res.status(400).json({message: "rating must be 1-5"})
+    if (!product_id || !rating)
+      return res.status(400).json({ message: "product_id and rating are required" });
+
+    if (typeof rating !== "number" || rating < 1 || rating > 5)
+      return res.status(400).json({ message: "rating must be 1-5" });
+
+    // Fetch user's name from database
+    const [users] = await db.query("SELECT name FROM users WHERE id = ?", [userId]);
+    if (!users.length) return res.status(404).json({ message: "User not found" });
+    const author = users[0].name;
+
     const [result] = await db.query(
-      "INSERT INTO reviews (product_id, author, rating, comment) VALUES (?, ?, ?, ?)",
-      [product_id, author, rating, comment]
+      "INSERT INTO reviews (product_id, author, rating, comment, user_id) VALUES (?, ?, ?, ?, ?)",
+      [product_id, author, rating, comment || null, userId]
     );
+
     res.status(201).json({ id: result.insertId, product_id, author, rating, comment });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error(err);
+    res.status(500).json({ message: err.message });
   }
 };
+
+
 
 // PUT /api/reviews/:id
 export const updateReview = async (req, res) => {
