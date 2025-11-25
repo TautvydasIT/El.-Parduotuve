@@ -34,7 +34,10 @@ export const getReviewsByProduct = async (req, res) => {
 
     // 3. Fetch all reviews for this product
     const [reviewResults] = await db.query(
-      "SELECT * FROM reviews WHERE product_id = ?",
+      `SELECT r.id, r.rating, r.comment, r.user_id, u.name AS user_name
+       FROM reviews r
+       JOIN users u ON r.user_id = u.id
+       WHERE r.product_id = ?`,
       [productId]
     );
 

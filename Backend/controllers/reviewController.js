@@ -24,31 +24,28 @@ export const getReviewById = async (req, res) => {
 };
 
 // POST /api/reviews
+// POST /api/reviews
 export const createReview = async (req, res) => {
   try {
     const { product_id, rating, comment } = req.body;
-    const userId = req.user.id; // from JWT token after authentication
+    const user_id = req.user.id; // from JWT
 
     if (!product_id || !rating)
       return res.status(400).json({ message: "product_id and rating are required" });
 
-    if (typeof rating !== "number" || rating < 1 || rating > 5)
+    if (typeof rating !== 'number' || rating < 1 || rating > 5)
       return res.status(400).json({ message: "rating must be 1-5" });
 
-    // Fetch user's name from database
-    const [users] = await db.query("SELECT name FROM users WHERE id = ?", [userId]);
-    if (!users.length) return res.status(404).json({ message: "User not found" });
-    const author = users[0].name;
-
     const [result] = await db.query(
-      "INSERT INTO reviews (product_id, author, rating, comment, user_id) VALUES (?, ?, ?, ?, ?)",
-      [product_id, author, rating, comment || null, userId]
+      "INSERT INTO reviews (product_id, user_id, rating, comment) VALUES (?, ?, ?, ?)",
+      [product_id, user_id, rating, comment]
     );
 
-    res.status(201).json({ id: result.insertId, product_id, author, rating, comment });
+    // Return the created review (including user_id)
+    res.status(201).json({ id: result.insertId, product_id, user_id, rating, comment });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ error: err.message });
   }
 };
 
