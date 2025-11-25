@@ -11,36 +11,53 @@ export default function ProductDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Form state
+  const [comment, setComment] = useState("");
+  const [rating, setRating] = useState(5);
+  const [submitting, setSubmitting] = useState(false);
+  const token = localStorage.getItem("token"); // Simple auth check
+
+  // Fetch product
   useEffect(() => {
-  setLoading(true);
-  setError(null);
+    setLoading(true);
+    axios
+      .get(`${API_BASE}/products/${productId}`)
+      .then(res => setProduct(res.data))
+      .catch(err => setError("Failed to load product"))
+      .finally(() => setLoading(false));
+  }, [productId]);
 
-  axios.get(`${API_BASE}/products/${productId}`)
-    .then(res => {
-      setProduct(res.data);
-      setLoading(false);
-    })
-    .catch(err => {
-      setError("Failed to load product");
-      setLoading(false);
-    });
-}, [productId]);
+  // Fetch reviews
+  useEffect(() => {
+    if (!product?.type_id) return;
+    axios
+      .get(`${API_BASE}/types/${product.type_id}/products/${productId}/reviews`)
+      .then(res => setReviews(res.data.reviews || res.data || []))
+      .catch(err => console.error(err));
+  }, [product]);
 
-// Fetch reviews AFTER product is loaded
-useEffect(() => {
-  if (!product?.type_id) return; // Wait until product is fetched
+  // Submit review
+  const handleReviewSubmit = async (e) => {
+    e.preventDefault();
+    if (!comment) return;
+    setSubmitting(true);
 
-  axios
-    .get(`${API_BASE}/types/${product.type_id}/products/${productId}/reviews`)
-    .then(res => {
-      setReviews(res.data.reviews || res.data || []);
-    })
-    .catch(err => {
+    try {
+      const res = await axios.post(
+        `${API_BASE}/types/${product.type_id}/products/${productId}/reviews`,
+        { comment, rating },
+        { headers: { Authorization: `Bearer ${token}` } } // send token
+      );
+      setReviews(prev => [...prev, res.data]); // Append new review
+      setComment("");
+      setRating(5);
+    } catch (err) {
       console.error(err);
-      setReviews([]);
-    });
-}, [product]);
-
+      alert(err.response?.data?.message || "Failed to submit review");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   if (loading) return <div className="py-10 text-center">Loading...</div>;
   if (error) return <div className="py-10 text-center text-red-600">{error}</div>;
@@ -48,6 +65,7 @@ useEffect(() => {
 
   return (
     <div className="max-w-4xl mx-auto bg-white rounded-lg shadow p-6 space-y-6">
+      {/* Product Info */}
       <div className="flex flex-col md:flex-row gap-6">
         <img
           src={product.image || "/placeholder.png"}
@@ -62,6 +80,7 @@ useEffect(() => {
         </div>
       </div>
 
+      {/* Reviews */}
       <section>
         <h3 className="text-xl font-semibold mb-2">Reviews</h3>
         {reviews.length === 0 ? (
@@ -78,6 +97,44 @@ useEffect(() => {
           </ul>
         )}
       </section>
+
+      {/* Review Form (only if logged in) */}
+      {token ? (
+        <section className="mt-6">
+          <h3 className="text-xl font-semibold mb-2">Write a Review</h3>
+          <form onSubmit={handleReviewSubmit} className="space-y-3">
+            <textarea
+              value={comment}
+              onChange={e => setComment(e.target.value)}
+              placeholder="Write your review..."
+              className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-300"
+              rows={4}
+              required
+            />
+            <div className="flex items-center gap-3">
+              <label className="font-medium">Rating:</label>
+              <select
+                value={rating}
+                onChange={e => setRating(Number(e.target.value))}
+                className="border rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-300"
+              >
+                {[1, 2, 3, 4, 5].map(n => (
+                  <option key={n} value={n}>{n}</option>
+                ))}
+              </select>
+            </div>
+            <button
+              type="submit"
+              disabled={submitting}
+              className="px-4 py-2 bg-indigo-600 text-white rounded shadow hover:bg-indigo-700 transition"
+            >
+              {submitting ? "Submitting..." : "Submit Review"}
+            </button>
+          </form>
+        </section>
+      ) : (
+        <p className="text-gray-500 mt-4">You must be logged in to write a review.</p>
+      )}
     </div>
   );
 }
