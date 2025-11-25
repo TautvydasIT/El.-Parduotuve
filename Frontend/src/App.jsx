@@ -42,7 +42,7 @@ function Header() {
           <div className="hidden md:flex items-center gap-3">
             <div className="hidden md:flex items-center gap-3">
     <button
-      className="flex items-center gap-2 py-1 px-3 border border-gray-300 rounded-md bg-white text-gray-800 hover:shadow-md transition"
+      className="bg-indigo-600 text-white px-4 py-2 rounded-md font-semibold shadow hover:bg-indigo-700 hover:shadow-lg transition"
       onClick={() => setShowAuth(true)}
     >
       <User size={16} />
@@ -50,8 +50,7 @@ function Header() {
     </button>
 
     <button
-      className="py-1 px-3 rounded-md flex items-center gap-2 border border-gray-300 bg-white text-gray-800 hover:bg-indigo-50 transition"
-    >
+      className="bg-indigo-600 text-white px-4 py-2 rounded-md font-semibold shadow hover:bg-indigo-700 hover:shadow-lg transition">
       <ShoppingCart size={16} />
       <span className="text-sm">Cart</span>
     </button>
