@@ -30,7 +30,7 @@ export default function ProductDetails() {
   // Fetch reviews for this product
   useEffect(() => {
     axios
-      .get(`${API_BASE}/reviews?product_id=${productId}`)
+      .get(`${API_BASE}/types/${product.type_id}/products/${productId}/reviews`)
       .then(res => setReviews(res.data || []))
       .catch(err => console.error(err));
   }, [productId]);
