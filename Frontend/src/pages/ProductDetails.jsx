@@ -29,11 +29,14 @@ export default function ProductDetails() {
 
   // Fetch reviews for this product
   useEffect(() => {
-    axios
-      .get(`${API_BASE}/types/${product.type_id}/products/${productId}/reviews`)
-      .then(res => setReviews(res.data || []))
-      .catch(err => console.error(err));
-  }, [productId]);
+  if (!product?.type_id) return; // Wait until product is loaded
+
+  axios
+    .get(`${API_BASE}/types/${product.type_id}/products/${productId}/reviews`)
+    .then(res => setReviews(res.data || []))
+    .catch(err => console.error(err));
+}, [product, productId]);
+
 
   // Submit review
   const handleReviewSubmit = async (e) => {
