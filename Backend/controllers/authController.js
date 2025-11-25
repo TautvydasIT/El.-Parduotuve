@@ -180,7 +180,7 @@ export const getCurrentUser = async (req, res) => {
   try {
     const userId = req.user.id; // set by authenticateToken middleware
     const result = await pool.query(
-      "SELECT id, name, email FROM users WHERE id = $1",
+      "SELECT id, name, email FROM users WHERE id = ?",
       [userId]
     );
 
