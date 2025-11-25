@@ -40,13 +40,22 @@ function Header() {
 
         <div className="flex items-center gap-4">
           <div className="hidden md:flex items-center gap-3">
-            <button className="flex items-center gap-2 py-1 px-3 border rounded-md hover:shadow-sm transition" onClick={() => setShowAuth(true)}>
-              <User size={16} />
-              <span className="text-sm">Login / Register</span>
-            </button>
-            <button className="py-1 px-3 rounded-md flex items-center gap-2 border hover:bg-indigo-50 transition">
-              <ShoppingCart size={16} /> <span className="text-sm">Cart</span>
-            </button>
+            <div className="hidden md:flex items-center gap-3">
+    <button
+      className="flex items-center gap-2 py-1 px-3 border border-gray-300 rounded-md bg-white text-gray-800 hover:shadow-md transition"
+      onClick={() => setShowAuth(true)}
+    >
+      <User size={16} />
+      <span className="text-sm">Login / Register</span>
+    </button>
+
+    <button
+      className="py-1 px-3 rounded-md flex items-center gap-2 border border-gray-300 bg-white text-gray-800 hover:bg-indigo-50 transition"
+    >
+      <ShoppingCart size={16} />
+      <span className="text-sm">Cart</span>
+    </button>
+  </div>
           </div>
 
           <button className="md:hidden p-2" onClick={() => setOpen(!open)} aria-label="menu">
@@ -107,9 +116,15 @@ function SectionTitle({ title, subtitle }) {
         <h2 className="text-2xl font-semibold">{title}</h2>
         {subtitle && <p className="text-sm text-gray-500">{subtitle}</p>}
       </div>
-      <div className="hidden md:block">
-        <Search />
-      </div>
+      <div className="flex items-center border rounded px-2 py-1 w-full max-w-sm">
+  <input
+    type="text"
+    placeholder="Search products..."
+    className="flex-grow outline-none px-2"
+  />
+  <Search size={20} className="text-gray-600" />
+</div>
+
     </div>
   );
 }
@@ -261,9 +276,13 @@ function AuthModal({ onClose }) {
             <button type="submit" disabled={loading} className="px-4 py-2 bg-indigo-600 text-white rounded shadow hover:translate-y-[-1px] transition">
               {loading ? "Please wait..." : mode === "login" ? "Login" : "Register"}
             </button>
-            <button type="button" onClick={() => setMode(mode === "login" ? "register" : "login")} className="text-sm text-indigo-600 underline">
-              {mode === "login" ? "Create account" : "Have an account? Login"}
-            </button>
+            <button
+    type="button"
+    onClick={() => setMode(mode === "login" ? "register" : "login")}
+    className="text-sm text-indigo-600 underline hover:text-indigo-800 transition"
+  >
+    {mode === "login" ? "Create account" : "Have an account? Login"}
+  </button>
           </div>
         </form>
       </motion.div>
