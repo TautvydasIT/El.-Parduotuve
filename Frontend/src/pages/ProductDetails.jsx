@@ -75,6 +75,25 @@ export default function ProductDetails() {
   if (error) return <div className="py-10 text-center text-red-600">{error}</div>;
   if (!product) return <div className="py-10 text-center">Product not found</div>;
 
+  const handleDeleteReview = async (reviewId) => {
+  if (!confirm("Are you sure you want to delete this review?")) return;
+
+  try {
+    const token = localStorage.getItem("token");
+
+    await axios.delete(`${API_BASE}/reviews/${reviewId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    // Remove from UI
+    setReviews(prev => prev.filter(r => r.id !== reviewId));
+
+  } catch (err) {
+    console.error(err);
+    alert(err.response?.data?.message || "Failed to delete review");
+  }
+};
+
   return (
     <div className="max-w-4xl mx-auto bg-white rounded-lg shadow p-6 space-y-6">
       {/* Product Info */}
@@ -94,21 +113,36 @@ export default function ProductDetails() {
 
       {/* Reviews */}
       <section>
-        <h3 className="text-xl font-semibold mb-2">Reviews</h3>
-        {reviews.length === 0 ? (
-          <p className="text-gray-500">No reviews yet.</p>
-        ) : (
-          <ul className="space-y-4">
-            {reviews.map(r => (
-              <li key={r.id} className="border p-3 rounded-md bg-gray-50">
-                <p className="font-medium">{r.user_name || "Anonymous"}</p>
-                <p className="text-gray-600 text-sm">{r.comment}</p>
-                {r.rating && <p className="text-yellow-500 text-sm">⭐ {r.rating}</p>}
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
+  <h3 className="text-xl font-semibold mb-2">Reviews</h3>
+
+  {reviews.length === 0 ? (
+    <p className="text-gray-500">No reviews yet.</p>
+  ) : (
+    <ul className="space-y-4">
+      {reviews.map(r => (
+        <li key={r.id} className="border p-3 rounded-md bg-gray-50 relative">
+
+          {/* Review content */}
+          <p className="font-medium">{r.user_name || "Anonymous"}</p>
+          <p className="text-gray-600 text-sm">{r.comment}</p>
+          {r.rating && <p className="text-yellow-500 text-sm">⭐ {r.rating}</p>}
+
+          {/* DELETE BUTTON — only owner or admin */}
+          {user && (user.id === r.user_id || user.role === "admin") && (
+            <button
+              onClick={() => handleDeleteReview(r.id)}
+              className="absolute top-2 right-2 text-red-500 text-sm hover:underline"
+            >
+              Delete
+            </button>
+          )}
+
+        </li>
+      ))}
+    </ul>
+  )}
+</section>
+
 
       {/* Review Form (only if logged in) */}
       {user ? (
