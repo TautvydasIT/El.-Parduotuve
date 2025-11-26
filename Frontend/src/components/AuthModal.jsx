@@ -69,7 +69,7 @@ export default function AuthModal({ onClose }) {
           <h3 className="text-lg font-semibold">
             {mode === "login" ? "Login" : "Register"}
           </h3>
-          <button onClick={onClose} aria-label="close">
+          <button onClick={onClose} aria-label="close" className ="cursor-pointer" >
             ✕
           </button>
         </div>
