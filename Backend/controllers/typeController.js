@@ -63,15 +63,19 @@ export const getType = async (req, res) => {
 // POST /api/types
 export const createType = async (req, res) => {
   try {
-    const { name } = req.body;
+    const { name, image } = req.body;
     if (!name) return res.status(400).json({ message: "Name required" });
 
-    const [result] = await db.query("INSERT INTO types (name) VALUES (?)", [name]);
-    res.status(201).json({ id: result.insertId, name });
+    const [result] = await db.query(
+      "INSERT INTO types (name, image) VALUES (?, ?)",
+      [name, image || null]
+    );
+
+    res.status(201).json({ id: result.insertId, name, image: image || null });
   } catch (err) {
-     if (err.code === "ER_DUP_ENTRY") {
-    return res.status(409).json({ message: "Type with this name already exists" });
-  }
+    if (err.code === "ER_DUP_ENTRY") {
+      return res.status(409).json({ message: "Type with this name already exists" });
+    }
     res.status(500).json({ error: err.message });
   }
 };
@@ -79,13 +83,19 @@ export const createType = async (req, res) => {
 // PUT /api/types/:id
 export const updateType = async (req, res) => {
   try {
-    const { name } = req.body;
+    const { name, image } = req.body;
     const id = req.params.id;
     if (!name) return res.status(400).json({ message: "Name required" });
 
-    const [result] = await db.query("UPDATE types SET name = ? WHERE id = ?", [name, id]);
-    if (result.affectedRows === 0) return res.status(404).json({ message: "Type not found" });
-    res.status(200).json({ id, name });
+    const [result] = await db.query(
+      "UPDATE types SET name = ?, image = ? WHERE id = ?",
+      [name, image || null, id]
+    );
+
+    if (result.affectedRows === 0)
+      return res.status(404).json({ message: "Type not found" });
+
+    res.status(200).json({ id, name, image: image || null });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
