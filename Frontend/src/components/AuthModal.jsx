@@ -118,7 +118,7 @@ export default function AuthModal({ onClose }) {
             <button
               type="submit"
               disabled={loading}
-              className="px-4 py-2 bg-indigo-600 text-white rounded shadow hover:translate-y-[-1px] transition"
+              className="px-4 py-2 bg-indigo-600 text-white rounded shadow hover:translate-y-[-1px] transition cursor-pointer"
             >
               {loading
                 ? "Please wait..."
@@ -130,7 +130,7 @@ export default function AuthModal({ onClose }) {
             <button
               type="button"
               onClick={() => setMode(mode === "login" ? "register" : "login")}
-              className="text-sm text-indigo-600 underline hover:text-indigo-800 transition"
+              className="text-sm text-indigo-600 underline hover:text-indigo-800 transition cursor-pointer"
             >
               {mode === "login"
                 ? "Create account"
