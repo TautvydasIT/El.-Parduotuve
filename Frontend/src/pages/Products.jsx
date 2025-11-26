@@ -26,7 +26,7 @@ export default function Products() {
           className="block bg-white rounded-lg shadow p-4 hover:shadow-lg transition flex flex-col"
         >
           {/* Image container with fixed height */}
-          <div className="h-40 w-full overflow-hidden rounded-md bg-gray-50">
+          <div className="h-72 w-full overflow-hidden rounded-md bg-gray-50">
             <img
               src={p.image || "/placeholder.png"}
               alt={p.name}

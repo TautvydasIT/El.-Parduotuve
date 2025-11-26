@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function TypeCard({ type }) {
   return (
     <motion.article whileHover={{ y: -6 }} className="bg-white rounded-lg shadow p-4 flex flex-col">
-      <div className="h-40 flex items-center justify-center overflow-hidden rounded-md bg-gray-50">
+      <div className="h-72 flex items-center justify-center overflow-hidden rounded-md bg-gray-50">
         <img
           src={type.image || "/placeholder.png"}
           alt={type.name}
