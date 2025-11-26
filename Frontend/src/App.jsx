@@ -6,12 +6,10 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import About from "./pages/About";
 import Help from "./pages/Help";
-import ScrollToTop from "./components/ScrollToTop";
 
 export default function App() {
   return (
     <Router>
-      <ScrollToTop />
       <div className="min-h-screen flex flex-col font-sans bg-gray-50 text-gray-800">
         <Header />
         <main className="flex-1 container mx-auto px-4 py-8">

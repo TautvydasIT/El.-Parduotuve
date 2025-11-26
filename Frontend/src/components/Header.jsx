@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { User, Menu, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import AuthModal from "./AuthModal";
 import { UserContext } from "../context/UserContext";
 
@@ -8,6 +8,14 @@ export default function Header() {
   const { user, logout } = useContext(UserContext);
   const [showAuth, setShowAuth] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
+
+  const handleScrollTop = (to) => {
+    if (location.pathname === to) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    setMobileOpen(false); // close mobile menu if open
+  };
 
   return (
     <header className="bg-white border-b shadow-sm">
@@ -15,6 +23,7 @@ export default function Header() {
         {/* Logo */}
         <Link
           to="/"
+          onClick={() => handleScrollTop("/")}
           className="rounded-xl bg-indigo-600 text-white px-3 py-2 font-bold cursor-pointer hover:bg-indigo-700 transition"
         >
           E‑Shop
@@ -22,10 +31,18 @@ export default function Header() {
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-4">
-          <Link to="/about" className="text-gray-700 hover:text-indigo-600 transition">
+          <Link
+            to="/about"
+            onClick={() => handleScrollTop("/about")}
+            className="text-gray-700 hover:text-indigo-600 transition"
+          >
             About Us
           </Link>
-          <Link to="/help" className="text-gray-700 hover:text-indigo-600 transition">
+          <Link
+            to="/help"
+            onClick={() => handleScrollTop("/help")}
+            className="text-gray-700 hover:text-indigo-600 transition"
+          >
             Help
           </Link>
         </nav>
@@ -68,15 +85,15 @@ export default function Header() {
         <div className="md:hidden bg-white border-t shadow-md px-4 py-3 space-y-2">
           <Link
             to="/about"
+            onClick={() => handleScrollTop("/about")}
             className="block text-gray-700 hover:text-indigo-600 transition"
-            onClick={() => setMobileOpen(false)}
           >
             About Us
           </Link>
           <Link
             to="/help"
+            onClick={() => handleScrollTop("/help")}
             className="block text-gray-700 hover:text-indigo-600 transition"
-            onClick={() => setMobileOpen(false)}
           >
             Help
           </Link>
