@@ -1,7 +1,8 @@
 import { useState, useContext } from "react";
-import { User, ShoppingCart } from "lucide-react";
+import { User } from "lucide-react";
 import AuthModal from "./AuthModal";
 import { UserContext } from "../context/UserContext";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   const { user, logout } = useContext(UserContext);
@@ -10,9 +11,24 @@ export default function Header() {
   return (
     <header className="bg-white border-b shadow-sm">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        <a href="/" className="rounded-xl bg-indigo-600 text-white px-3 py-2 font-bold cursor-pointer hover:bg-indigo-700 transition">
-          E‑Shop
-        </a>
+        <div className="flex items-center gap-4">
+          <Link
+            to="/"
+            className="rounded-xl bg-indigo-600 text-white px-3 py-2 font-bold cursor-pointer hover:bg-indigo-700 transition"
+          >
+            E‑Shop
+          </Link>
+
+          {/* New navigation links */}
+          <nav className="flex items-center gap-3">
+            <Link to="/about" className="text-gray-700 hover:text-indigo-600 transition">
+              About Us
+            </Link>
+            <Link to="/help" className="text-gray-700 hover:text-indigo-600 transition">
+              Help
+            </Link>
+          </nav>
+        </div>
 
         <div className="flex items-center gap-3">
           {user ? (
