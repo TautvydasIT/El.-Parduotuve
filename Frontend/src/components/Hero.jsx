@@ -14,7 +14,7 @@ export default function Hero() {
 
         <div className="flex justify-center">
           <img
-            src="https://res.cloudinary.com/dwvihvwtn/image/upload/v1764163363/ab82ab50-efd6-4964-bf75-881ae875a41c_otx0xr.jpg"
+            src="https://res.cloudinary.com/dwvihvwtn/image/upload/v1764173891/ab82ab50-efd6-4964-bf75-881ae875a41c_uj0ghb.jpg"
             alt="hero"
             className="max-w-full h-48 md:h-56 object-contain rounded-lg shadow-lg bg-white/30 p-3"
           />
