@@ -179,10 +179,10 @@ export const logoutUser = async (req, res) => {
 export const getCurrentUser = async (req, res) => {
   try {
     const userId = req.user.id; // set by authenticateToken middleware
-    const [rows] = await db.query(
-      "SELECT id, name, email FROM users WHERE id = ?",
-      [userId]
-    );
+   const [rows] = await db.query(
+    "SELECT id, name, email, role FROM users WHERE id = ?", 
+    [userId]
+  );
 
     if (rows.length === 0) return res.status(404).json({ message: "User not found" });
 
