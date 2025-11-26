@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import TypeCard from "./TypeCard";
 import { UserContext } from "../context/UserContext";
-import Modal from "./Modal"; // simple modal component
+import { motion } from "framer-motion";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 
@@ -111,35 +111,61 @@ export default function TypesGrid() {
         ))}
       </div>
 
+      {/* Inline Modal */}
       {modalOpen && (
-        <Modal onClose={() => setModalOpen(false)}>
-          <h2 className="text-xl font-semibold mb-4">
-            {editingType ? "Edit Type" : "Create Type"}
-          </h2>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <input
-              type="text"
-              placeholder="Name"
-              className="w-full border px-3 py-2 rounded"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              required
-            />
-            <input
-              type="text"
-              placeholder="Image URL"
-              className="w-full border px-3 py-2 rounded"
-              value={formData.image}
-              onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-            />
-            <button
-              type="submit"
-              className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
-            >
-              Save
-            </button>
-          </form>
-        </Modal>
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/50"
+            onClick={() => setModalOpen(false)}
+          />
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            className="relative bg-white rounded-lg w-full max-w-md p-6 shadow-lg"
+          >
+            <h2 className="text-xl font-semibold mb-4">
+              {editingType ? "Edit Type" : "Create Type"}
+            </h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <input
+                type="text"
+                placeholder="Name"
+                className="w-full border px-3 py-2 rounded"
+                value={formData.name}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
+                required
+              />
+              <input
+                type="text"
+                placeholder="Image URL"
+                className="w-full border px-3 py-2 rounded"
+                value={formData.image}
+                onChange={(e) =>
+                  setFormData({ ...formData, image: e.target.value })
+                }
+              />
+              <div className="flex justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => setModalOpen(false)}
+                  className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+                >
+                  Save
+                </button>
+              </div>
+            </form>
+          </motion.div>
+        </div>
       )}
     </div>
   );
