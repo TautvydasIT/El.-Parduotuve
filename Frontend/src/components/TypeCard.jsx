@@ -8,7 +8,7 @@ export default function TypeCard({ type }) {
         <img
           src={type.image || "https://res.cloudinary.com/dwvihvwtn/image/upload/v1764158979/cc583528-e1c1-4ec3-8bf4-3625664e8f3c_okyurr.jpg"}
           alt={type.name}
-          className="max-w-full max-h-full object-contain"
+          className="max-w-full max-h-full object-cover"
         />
       </div>
       <h3 className="mt-4 font-semibold text-lg">{type.name}</h3>
