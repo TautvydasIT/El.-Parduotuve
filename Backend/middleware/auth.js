@@ -32,7 +32,10 @@ export const authorizeReviewDelete = async (req, res, next) => {
   const userId = req.user.id;
   const role = req.user.role;
   const reviewId = req.params.id;
-
+  console.log("DELETE review", {
+  user: req.user,
+  params: req.params
+});
   // Admin can always delete
   if (role === "admin") return next();
 
