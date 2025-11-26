@@ -1,14 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
-
 export default function Footer() {
-  const location = useLocation();
-
-  const handleScrollTop = (to) => {
-    if (location.pathname === to) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  };
-
   return (
     <footer className="bg-gray-900 text-gray-200 mt-8">
       <div className="container mx-auto px-4 py-8 grid md:grid-cols-3 gap-6">
@@ -23,31 +13,19 @@ export default function Footer() {
           <h5 className="font-semibold">Links</h5>
           <ul className="mt-2 text-sm text-gray-400 space-y-1">
             <li>
-              <Link
-                to="/"
-                onClick={() => handleScrollTop("/")}
-                className="hover:text-white"
-              >
+              <a href="/" className="hover:text-white">
                 Home
-              </Link>
+              </a>
             </li>
             <li>
-              <Link
-                to="/about"
-                onClick={() => handleScrollTop("/about")}
-                className="hover:text-white"
-              >
+              <a href="/about" className="hover:text-white">
                 About
-              </Link>
+              </a>
             </li>
             <li>
-              <Link
-                to="/help"
-                onClick={() => handleScrollTop("/help")}
-                className="hover:text-white"
-              >
+              <a href="/help" className="hover:text-white">
                 Help
-              </Link>
+              </a>
             </li>
           </ul>
         </div>

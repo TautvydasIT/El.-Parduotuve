@@ -1,62 +1,42 @@
 import { useState, useContext } from "react";
 import { User, Menu, X } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
-import AuthModal from "./AuthModal";
 import { UserContext } from "../context/UserContext";
+import AuthModal from "./AuthModal";
 
 export default function Header() {
   const { user, logout } = useContext(UserContext);
   const [showAuth, setShowAuth] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const location = useLocation();
-
-  const handleScrollTop = (to) => {
-    if (location.pathname === to) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-    setMobileOpen(false); // close mobile menu if open
-  };
 
   return (
     <header className="bg-white border-b shadow-sm">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
-        <Link
-          to="/"
-          onClick={() => handleScrollTop("/")}
+        <a
+          href="/"
           className="rounded-xl bg-indigo-600 text-white px-3 py-2 font-bold cursor-pointer hover:bg-indigo-700 transition"
         >
           E‑Shop
-        </Link>
+        </a>
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-4">
-          <Link
-            to="/about"
-            onClick={() => handleScrollTop("/about")}
-            className="text-gray-700 hover:text-indigo-600 transition"
-          >
+          <a href="/about" className="text-gray-700 hover:text-indigo-600 transition cursor-pointer">
             About Us
-          </Link>
-          <Link
-            to="/help"
-            onClick={() => handleScrollTop("/help")}
-            className="text-gray-700 hover:text-indigo-600 transition"
-          >
+          </a>
+          <a href="/help" className="text-gray-700 hover:text-indigo-600 transition cursor-pointer">
             Help
-          </Link>
+          </a>
         </nav>
 
         {/* Desktop login / user */}
         <div className="hidden md:flex items-center gap-3">
           {user ? (
             <>
-              <span className="font-medium text-gray-700">
-                Hello, {user.name || user.email}
-              </span>
+              <span className="font-medium text-gray-700">{`Hello, ${user.name || user.email}`}</span>
               <button
                 onClick={logout}
-                className="bg-red-600 text-white px-4 py-2 rounded-md font-semibold shadow hover:bg-red-700 transition"
+                className="bg-red-600 text-white px-4 py-2 rounded-md font-semibold shadow hover:bg-red-700 transition cursor-pointer"
               >
                 Logout
               </button>
@@ -64,16 +44,16 @@ export default function Header() {
           ) : (
             <button
               onClick={() => setShowAuth(true)}
-              className="bg-indigo-600 text-white px-4 py-2 rounded-md font-semibold shadow hover:bg-indigo-700 transition flex items-center gap-2"
+              className="bg-indigo-600 text-white px-4 py-2 rounded-md font-semibold shadow hover:bg-indigo-700 transition flex items-center gap-2 cursor-pointer"
             >
               <User size={16} /> Login / Register
             </button>
           )}
         </div>
 
-        {/* Mobile hamburger button */}
+        {/* Mobile hamburger */}
         <button
-          className="md:hidden p-2 rounded-md hover:bg-gray-100 transition"
+          className="md:hidden p-2 rounded-md hover:bg-gray-100 transition cursor-pointer"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -83,47 +63,47 @@ export default function Header() {
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="md:hidden bg-white border-t shadow-md px-4 py-3 space-y-2">
-          <Link
-            to="/about"
-            onClick={() => handleScrollTop("/about")}
-            className="block text-gray-700 hover:text-indigo-600 transition"
+          <a
+            href="/about"
+            className="block text-gray-700 hover:text-indigo-600 transition cursor-pointer"
+            onClick={() => setMobileOpen(false)}
           >
             About Us
-          </Link>
-          <Link
-            to="/help"
-            onClick={() => handleScrollTop("/help")}
-            className="block text-gray-700 hover:text-indigo-600 transition"
+          </a>
+          <a
+            href="/help"
+            className="block text-gray-700 hover:text-indigo-600 transition cursor-pointer"
+            onClick={() => setMobileOpen(false)}
           >
             Help
-          </Link>
+          </a>
 
-          <div className="mt-2 border-t pt-2">
+          <div className="mt-2 border-t pt-2 space-y-2">
             {user ? (
               <>
-                <span className="block font-medium text-gray-700 mb-2">
-                  Hello, {user.name || user.email}
-                </span>
+                <span className="block font-medium text-gray-700">{`Hello, ${user.name || user.email}`}</span>
                 <button
                   onClick={() => {
                     logout();
                     setMobileOpen(false);
                   }}
-                  className="w-full bg-red-600 text-white px-4 py-2 rounded-md font-semibold shadow hover:bg-red-700 transition"
+                  className="w-full bg-red-600 text-white px-4 py-2 rounded-md font-semibold shadow hover:bg-red-700 transition cursor-pointer"
                 >
                   Logout
                 </button>
               </>
             ) : (
-              <button
-                onClick={() => {
-                  setShowAuth(true);
-                  setMobileOpen(false);
-                }}
-                className="w-full bg-indigo-600 text-white px-4 py-2 rounded-md font-semibold shadow hover:bg-indigo-700 transition flex items-center justify-center gap-2"
-              >
-                <User size={16} /> Login / Register
-              </button>
+              <>
+                <button
+                  onClick={() => {
+                    setShowAuth(true);
+                    setMobileOpen(false);
+                  }}
+                  className="w-full bg-indigo-600 text-white px-4 py-2 rounded-md font-semibold shadow hover:bg-indigo-700 transition flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <User size={16} /> Login / Register
+                </button>
+              </>
             )}
           </div>
         </div>
