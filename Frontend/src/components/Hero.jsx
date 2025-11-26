@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 export default function Hero() {
   return (
     <section className="rounded-lg overflow-hidden bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-400 text-white p-8 mb-8">
@@ -8,7 +9,7 @@ export default function Hero() {
 
           <div className="mt-6 flex gap-3">
             <a href="#types" className="bg-white text-indigo-600 px-4 py-2 rounded-md font-semibold shadow hover:translate-y-[-2px] transition">Browse Types</a>
-            <a href="#about" className="px-4 py-2 rounded-md border border-white/40 hover:bg-white/10 transition">Learn more</a>
+             <Link to="/about" className="px-4 py-2 rounded-md border border-white/40 hover:bg-white/10 transition">Learn more</Link>
           </div>
         </div>
 
