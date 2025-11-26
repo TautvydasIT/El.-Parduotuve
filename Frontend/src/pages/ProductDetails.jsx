@@ -231,6 +231,15 @@ export default function ProductDetails() {
             Delete
           </button>
         )}
+         {/* DELETE BUTTON */}
+        {user && (user.id === r.user_id || user.role === "admin") && (
+          <button
+            onClick={() => handleDeleteReview(r.id)}
+            className="absolute top-2 right-2 text-red-500 text-sm hover:underline"
+          >
+            KA BLET
+          </button>
+        )}
       </>
     )}
   </li>
