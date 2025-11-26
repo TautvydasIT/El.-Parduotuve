@@ -6,7 +6,7 @@ export default function TypeCard({ type }) {
     <motion.article whileHover={{ y: -6 }} className="bg-white rounded-lg shadow p-4 flex flex-col">
       <div className="h-40 flex items-center justify-center overflow-hidden rounded-md bg-gray-50">
         <img
-          src={type.image || "/placeholder.png"}
+          src={type.image || "https://res.cloudinary.com/dwvihvwtn/image/upload/v1764158170/e502861a-8868-460b-8e76-a442db63dd26_ncmiy9.jpg"}
           alt={type.name}
           className="max-w-full max-h-full object-contain"
         />
