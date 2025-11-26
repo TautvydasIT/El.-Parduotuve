@@ -5,12 +5,12 @@ export default function Help() {
 
   const faqs = [
     {
-      title: "Nerandate norimos prekes?",
-      content: `Mes nuolat pridedame naujų prekių. Jei turite pageidavimų, visada galite parašyti mums el. paštu: fakeemail@example.com.`,
+      title: "Cant find a product?",
+      content: `We are constantly adding new products, if you have any suggestions - contact us through email`,
     },
     {
-      title: "Niekas nepadėjo?",
-      content: `Pagalba nuotoliu: +370 123 45678, el. paštas: fakeemail@example.com\nPagalba gyvai: Adresas: Fake gatvė 1, Vilnius, Lietuva.`,
+      title: "Nothing helped?",
+      content: `Help online: phone: +370 123 45678, el. paštas: fakeemail@example.com\nPagalba gyvai: Adresas: Fake street 1, Vilnius, Lithuania.`,
     },
   ];
 
@@ -20,7 +20,7 @@ export default function Help() {
 
   return (
     <section className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Pagalba / Help</h1>
+      <h1 className="text-3xl font-bold mb-6">Help</h1>
 
       <div className="space-y-4">
         {faqs.map((faq, index) => (

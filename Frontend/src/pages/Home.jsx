@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <SectionTitle title="Produktų tipai" subtitle="Pasirinkite kategoriją, kad pamatytumėte prekes" />
+      <SectionTitle title="Product types" subtitle="Choose a category to explore products" />
       <TypesGrid />
     </>
   );
