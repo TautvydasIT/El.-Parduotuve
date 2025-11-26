@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-
+import db from "../db/db.js";
 const JWT_SECRET = process.env.JWT_SECRET;
 
 // Verify token
@@ -29,7 +29,6 @@ export const authorize = (...allowedRoles) => {
 };
 
 export const authorizeReviewDelete = async (req, res, next) => {
-  console.log("DEBUG DELETE PARAMS:", req.params);  // ← ADD THIS
 
   const userId = req.user.id;
   const role = req.user.role;
