@@ -15,14 +15,15 @@ export default function Products() {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
+
   const [formData, setFormData] = useState({
     brand: "",
     name: "",
     price: 0,
+    description: "",
     image: "",
   });
 
-  // Fetch products
   useEffect(() => {
     fetchProducts();
   }, [typeId]);
@@ -31,27 +32,27 @@ export default function Products() {
     try {
       const res = await axios.get(`${API_BASE}/types/${typeId}/products`);
       setProducts(res.data.products || []);
+      setLoading(false);
     } catch (err) {
       console.error(err);
-    } finally {
       setLoading(false);
     }
   };
 
-  // Modal handlers
   const openCreateModal = () => {
     setEditingProduct(null);
-    setFormData({ brand: "", name: "", price: 0, image: "" });
+    setFormData({ brand: "", name: "", price: 0, description: "", image: "" });
     setModalOpen(true);
   };
 
-  const openEditModal = (product) => {
-    setEditingProduct(product);
+  const openEditModal = (p) => {
+    setEditingProduct(p);
     setFormData({
-      brand: product.brand,
-      name: product.name,
-      price: product.price,
-      image: product.image || "",
+      brand: p.brand,
+      name: p.name,
+      price: p.price,
+      description: p.description || "",
+      image: p.image || "",
     });
     setModalOpen(true);
   };
@@ -62,7 +63,7 @@ export default function Products() {
 
     try {
       if (editingProduct) {
-        // Edit product
+        // Edit
         const res = await axios.put(
           `${API_BASE}/products/${editingProduct.id}`,
           { ...formData, type_id: Number(typeId) },
@@ -72,7 +73,7 @@ export default function Products() {
           prev.map((p) => (p.id === editingProduct.id ? res.data : p))
         );
       } else {
-        // Create product
+        // Create
         const res = await axios.post(
           `${API_BASE}/products`,
           { ...formData, type_id: Number(typeId) },
@@ -104,7 +105,6 @@ export default function Products() {
 
   return (
     <div>
-      {/* Admin create button */}
       {user?.role === "admin" && (
         <button
           onClick={openCreateModal}
@@ -114,53 +114,48 @@ export default function Products() {
         </button>
       )}
 
-      {/* Products grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {products.map((p) => (
           <motion.div
-  key={p.id}
-  whileHover={{ y: -6 }}
-  className="relative bg-white rounded-lg shadow p-4 flex flex-col"
->
-  {user?.role === "admin" && (
-    <motion.div
-      className="flex gap-2 z-10 mb-2"
-      initial={{ y: 0 }}
-      whileHover={{ y: -6 }} // move with the card
-    >
-      <button
-        onClick={() => openEditModal(p)}
-        className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm"
-      >
-        Edit
-      </button>
-      <button
-        onClick={() => handleDelete(p.id)}
-        className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-sm"
-      >
-        Delete
-      </button>
-    </motion.div>
-  )}
+            key={p.id}
+            whileHover={{ y: -6 }}
+            className="relative bg-white rounded-lg shadow p-4 flex flex-col"
+          >
+            {user?.role === "admin" && (
+              <div className="flex gap-2 mb-2 z-10">
+                <button
+                  onClick={() => openEditModal(p)}
+                  className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(p.id)}
+                  className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-sm"
+                >
+                  Delete
+                </button>
+              </div>
+            )}
 
-  <Link to={`/products/${p.id}`} className="flex flex-col items-start">
-    <div className="h-72 w-full overflow-hidden rounded-md bg-gray-50">
-      <img
-        src={p.image || "/placeholder.png"}
-        alt={p.name}
-        className="w-full h-full object-cover"
-      />
-    </div>
-    <h3 className="mt-2 font-semibold text-lg">{p.name}</h3>
-    <p className="mt-1 text-sm text-gray-500">{p.brand}</p>
-    <p className="mt-1 font-semibold">${p.price}</p>
-  </Link>
-</motion.div>
-
+            <Link to={`/products/${p.id}`} className="flex flex-col items-start">
+              <div className="h-72 w-full overflow-hidden rounded-md bg-gray-50">
+                <img
+                  src={p.image || "/placeholder.png"}
+                  alt={p.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h3 className="mt-2 font-semibold text-lg">{p.name}</h3>
+              <p className="mt-1 text-sm text-gray-500">{p.brand}</p>
+              {p.description && <p className="mt-1 text-gray-600">{p.description}</p>}
+              <p className="mt-1 font-semibold">${p.price}</p>
+            </Link>
+          </motion.div>
         ))}
       </div>
 
-      {/* Inline modal for create/edit */}
+      {/* Inline modal */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div
@@ -182,9 +177,7 @@ export default function Products() {
                 placeholder="Brand"
                 className="w-full border px-3 py-2 rounded"
                 value={formData.brand}
-                onChange={(e) =>
-                  setFormData({ ...formData, brand: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
                 required
               />
               <input
@@ -192,9 +185,7 @@ export default function Products() {
                 placeholder="Product Name"
                 className="w-full border px-3 py-2 rounded"
                 value={formData.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 required
               />
               <input
@@ -203,10 +194,7 @@ export default function Products() {
                 className="w-full border px-3 py-2 rounded"
                 value={formData.price}
                 onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    price: parseFloat(e.target.value) || 0,
-                  })
+                  setFormData({ ...formData, price: parseFloat(e.target.value) || 0 })
                 }
                 step="0.01"
                 min="0"
@@ -214,12 +202,17 @@ export default function Products() {
               />
               <input
                 type="text"
+                placeholder="Description"
+                className="w-full border px-3 py-2 rounded"
+                value={formData.description}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              />
+              <input
+                type="text"
                 placeholder="Image URL"
                 className="w-full border px-3 py-2 rounded"
                 value={formData.image}
-                onChange={(e) =>
-                  setFormData({ ...formData, image: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, image: e.target.value })}
               />
 
               <div className="flex justify-end gap-2">
