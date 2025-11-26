@@ -126,79 +126,86 @@ export default function ProductDetails() {
     {r.editing ? (
       // EDIT FORM
       <form
-        onSubmit={async (e) => {
-          e.preventDefault();
-          try {
-            const token = localStorage.getItem("token");
-            const res = await axios.put(
-              `${API_BASE}/reviews/${r.id}`,
-              {
-                product_id: r.product_id,
-                author: user.name || user.email,
-                rating: r.editRating,
-                comment: r.editComment,
-              },
-              { headers: { Authorization: `Bearer ${token}` } }
-            );
+  onSubmit={async (e) => {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem("token");
 
-            // update the review in state
-            setReviews(prev =>
-              prev.map(rv =>
-                rv.id === r.id ? { ...res.data, user_name: user.name } : rv
-              )
-            );
-          } catch (err) {
-            alert(err.response?.data?.message || "Failed to update review");
-          }
-        }}
-        className="space-y-2 mt-2"
-      >
-        <textarea
-          className="w-full border rounded px-2 py-1"
-          value={r.editComment}
-          onChange={(e) =>
-            setReviews(prev =>
-              prev.map(rv =>
-                rv.id === r.id ? { ...rv, editComment: e.target.value } : rv
-              )
-            )
-          }
-        />
-        <select
-          className="border rounded px-2 py-1"
-          value={r.editRating}
-          onChange={(e) =>
-            setReviews(prev =>
-              prev.map(rv =>
-                rv.id === r.id ? { ...rv, editRating: Number(e.target.value) } : rv
-              )
-            )
-          }
-        >
-          {[1, 2, 3, 4, 5].map(n => (
-            <option key={n} value={n}>{n}</option>
-          ))}
-        </select>
-        <button
-          type="submit"
-          className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
-        >
-          Save
-        </button>
-        <button
-          type="button"
-          onClick={() =>
-            setReviews(prev =>
-              prev.map(rv =>
-                rv.id === r.id ? { ...rv, editing: false } : rv
-              )
-            )
-          }
-          className="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400 ml-2"
-        >
-          Cancel
-        </button>
-      </form>
+      // Send only rating, comment, and the existing user_id
+      const res = await axios.put(
+        `${API_BASE}/reviews/${r.id}`,
+        {
+          product_id: r.product_id, // optional, only if backend wants it
+          user_id: r.user_id,       // send existing user_id
+          rating: r.editRating,
+          comment: r.editComment,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      // Update review in state and close edit form
+      setReviews(prev =>
+        prev.map(rv =>
+          rv.id === r.id
+            ? { ...res.data, user_name: user.name, editing: false }
+            : rv
+        )
+      );
+    } catch (err) {
+      alert(err.response?.data?.message || "Failed to update review");
+    }
+  }}
+  className="space-y-2 mt-2"
+>
+  <textarea
+    className="w-full border rounded px-2 py-1"
+    value={r.editComment}
+    onChange={(e) =>
+      setReviews(prev =>
+        prev.map(rv =>
+          rv.id === r.id ? { ...rv, editComment: e.target.value } : rv
+        )
+      )
+    }
+  />
+  <select
+    className="border rounded px-2 py-1"
+    value={r.editRating}
+    onChange={(e) =>
+      setReviews(prev =>
+        prev.map(rv =>
+          rv.id === r.id ? { ...rv, editRating: Number(e.target.value) } : rv
+        )
+      )
+    }
+  >
+    {[1, 2, 3, 4, 5].map(n => (
+      <option key={n} value={n}>{n}</option>
+    ))}
+  </select>
+  <button
+    type="submit"
+    className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
+  >
+    Save
+  </button>
+  <button
+    type="button"
+    onClick={() =>
+      setReviews(prev =>
+        prev.map(rv =>
+          rv.id === r.id ? { ...rv, editing: false } : rv
+        )
+      )
+    }
+    className="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400 ml-2"
+  >
+    Cancel
+  </button>
+</form>
+
     ) : (
       // VIEW MODE
       <>

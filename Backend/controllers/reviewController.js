@@ -55,31 +55,42 @@ export const createReview = async (req, res) => {
 export const updateReview = async (req, res) => {
   try {
     const { id } = req.params;
-    const { product_id, author, rating, comment } = req.body;
+    const { rating, comment, user_id } = req.body;
+    const loggedInUserId = req.user.id; // from auth middleware
 
+    // Fetch the review
     const [reviews] = await db.query("SELECT * FROM reviews WHERE id = ?", [id]);
     if (reviews.length === 0) {
       return res.status(404).json({ message: "Review not found" });
     }
-    if (product_id && product_id !== reviews[0].product_id) {
-      return res
-        .status(400)
-        .json({ message: "You cannot change the product_id of a review" });
+
+    const review = reviews[0];
+
+    // Ensure logged-in user is the owner or admin
+    if (review.user_id !== loggedInUserId && req.user.role !== "admin") {
+      return res.status(403).json({ message: "You are not allowed to edit this review" });
     }
-    if (!author || !rating || rating > 5 || rating < 1) {
-      return res
-        .status(400)
-        .json({ message: "author and rating(1-5) are required" });
+
+    // Ensure user_id in body (if sent) matches existing user_id
+    if (user_id && Number(user_id) !== review.user_id) {
+      return res.status(400).json({ message: "You cannot change the user_id of a review" });
     }
-    const [result] = await db.query(
-      "UPDATE reviews SET author = ?, rating = ?, comment = ? WHERE id = ?",
-      [author, rating, comment, id]
+
+    // Validate rating
+    if (!rating || rating < 1 || rating > 5) {
+      return res.status(400).json({ message: "Rating must be between 1 and 5" });
+    }
+
+    // Update the review
+    await db.query(
+      "UPDATE reviews SET rating = ?, comment = ? WHERE id = ?",
+      [rating, comment, id]
     );
 
     res.status(200).json({
-      id,
-      product_id: reviews[0].product_id, // unchanged
-      author,
+      id: review.id,
+      product_id: review.product_id,
+      user_id: review.user_id, // unchanged
       rating,
       comment,
     });
