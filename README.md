@@ -166,3 +166,19 @@ Iš diegimo diagramos matyti, jog sistema yra talpinama Railway serveryje, klien
 
 ## API specifikacija
 
+### Tipai
+**Get**
+
+**Atsako kodai**:
+200	
+List of types
+
+500	
+Internal server error
+
+**Panaudojimo pavyzdžiai**:
+<figure>
+  <img src="images/Paveikslėlis24.png" width="50%">
+  <figcaption>Paveikslėlis 22: Get tipo užklausa/atsakymas</figcaption>
+</figure>
+
