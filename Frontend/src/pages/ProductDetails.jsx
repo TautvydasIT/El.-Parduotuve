@@ -28,9 +28,9 @@ export default function ProductDetails() {
       .finally(() => setLoading(false));
   }, [productId]);
 
-  // Fetch reviews for this product
+  // Fetch reviews
   useEffect(() => {
-    if (!product?.type_id) return; // Wait until product is loaded
+    if (!product?.type_id) return;
 
     axios
       .get(`${API_BASE}/types/${product.type_id}/products/${productId}/reviews`)
@@ -52,13 +52,9 @@ export default function ProductDetails() {
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      // Append new review with current user's name
       setReviews(prev => [
         ...prev,
-        {
-          ...res.data,
-          user_name: user?.name || "You"
-        }
+        { ...res.data, user_name: user?.name || "You" }
       ]);
 
       setComment("");
@@ -71,28 +67,25 @@ export default function ProductDetails() {
     }
   };
 
+  // Delete review
+  const handleDeleteReview = async (reviewId) => {
+    if (!confirm("Are you sure you want to delete this review?")) return;
+
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(`${API_BASE}/reviews/${reviewId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setReviews(prev => prev.filter(r => r.id !== reviewId));
+    } catch (err) {
+      console.error(err);
+      alert(err.response?.data?.message || "Failed to delete review");
+    }
+  };
+
   if (loading) return <div className="py-10 text-center">Loading...</div>;
   if (error) return <div className="py-10 text-center text-red-600">{error}</div>;
   if (!product) return <div className="py-10 text-center">Product not found</div>;
-
-  const handleDeleteReview = async (reviewId) => {
-  if (!confirm("Are you sure you want to delete this review?")) return;
-
-  try {
-    const token = localStorage.getItem("token");
-
-    await axios.delete(`${API_BASE}/reviews/${reviewId}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-
-    // Remove from UI
-    setReviews(prev => prev.filter(r => r.id !== reviewId));
-
-  } catch (err) {
-    console.error(err);
-    alert(err.response?.data?.message || "Failed to delete review");
-  }
-};
 
   return (
     <div className="max-w-4xl mx-auto bg-white rounded-lg shadow p-6 space-y-6">
@@ -113,143 +106,53 @@ export default function ProductDetails() {
 
       {/* Reviews */}
       <section>
-  <h3 className="text-xl font-semibold mb-2">Reviews</h3>
+        <h3 className="text-xl font-semibold mb-2">Reviews</h3>
 
-  {reviews.length === 0 ? (
-    <p className="text-gray-500">No reviews yet.</p>
-  ) : (
-    <ul className="space-y-4">
-      {reviews.map(r => (
-  <li key={r.id} className="border p-3 rounded-md bg-gray-50 relative">
-    <p className="font-medium">{r.user_name || "Anonymous"}</p>
+        {reviews.length === 0 ? (
+          <p className="text-gray-500">No reviews yet.</p>
+        ) : (
+          <ul className="space-y-4">
+            {reviews.map(r => (
+              <li key={r.id} className="border p-3 rounded-md bg-gray-50 relative">
+                <p className="font-medium">{r.user_name || "Anonymous"}</p>
+                <p className="text-gray-600 text-sm">{r.comment}</p>
+                {r.rating && <p className="text-yellow-500 text-sm">⭐ {r.rating}</p>}
 
-    {r.editing ? (
-      // EDIT FORM
-      <form
-  onSubmit={async (e) => {
-    e.preventDefault();
-    try {
-      const token = localStorage.getItem("token");
+                {/* Edit button (only for review owner) */}
+                {user && user.id === r.user_id && (
+                  <button
+                    onClick={() =>
+                      setReviews(prev =>
+                        prev.map(rv =>
+                          rv.id === r.id
+                            ? { ...rv, editing: true, editComment: rv.comment, editRating: rv.rating }
+                            : rv
+                        )
+                      )
+                    }
+                    className="absolute top-2 right-16 text-blue-500 text-sm hover:underline"
+                  >
+                    Edit
+                  </button>
+                )}
 
-      // Send only rating, comment, and the existing user_id
-      const res = await axios.put(
-        `${API_BASE}/reviews/${r.id}`,
-        {
-          product_id: r.product_id, // optional, only if backend wants it
-          user_id: r.user_id,       // send existing user_id
-          rating: r.editRating,
-          comment: r.editComment,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      // Update review in state and close edit form
-      setReviews(prev =>
-        prev.map(rv =>
-          rv.id === r.id
-            ? { ...res.data, user_name: user.name, editing: false }
-            : rv
-        )
-      );
-    } catch (err) {
-      alert(err.response?.data?.message || "Failed to update review");
-    }
-  }}
-  className="space-y-2 mt-2"
->
-  <textarea
-    className="w-full border rounded px-2 py-1"
-    value={r.editComment}
-    onChange={(e) =>
-      setReviews(prev =>
-        prev.map(rv =>
-          rv.id === r.id ? { ...rv, editComment: e.target.value } : rv
-        )
-      )
-    }
-  />
-  <select
-    className="border rounded px-2 py-1"
-    value={r.editRating}
-    onChange={(e) =>
-      setReviews(prev =>
-        prev.map(rv =>
-          rv.id === r.id ? { ...rv, editRating: Number(e.target.value) } : rv
-        )
-      )
-    }
-  >
-    {[1, 2, 3, 4, 5].map(n => (
-      <option key={n} value={n}>{n}</option>
-    ))}
-  </select>
-  <button
-    type="submit"
-    className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
-  >
-    Save
-  </button>
-  <button
-    type="button"
-    onClick={() =>
-      setReviews(prev =>
-        prev.map(rv =>
-          rv.id === r.id ? { ...rv, editing: false } : rv
-        )
-      )
-    }
-    className="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400 ml-2"
-  >
-    Cancel
-  </button>
-</form>
-
-    ) : (
-      // VIEW MODE
-      <>
-        <p className="text-gray-600 text-sm">{r.comment}</p>
-        {r.rating && <p className="text-yellow-500 text-sm">⭐ {r.rating}</p>}
-
-        {user && user.id === r.user_id && (
-          <button
-            onClick={() =>
-              setReviews(prev =>
-                prev.map(rv =>
-                  rv.id === r.id
-                    ? { ...rv, editing: true, editComment: rv.comment, editRating: rv.rating }
-                    : rv
-                )
-              )
-            }
-            className="absolute top-2 right-16 text-blue-500 text-sm hover:underline"
-          >
-            Edit
-          </button>
+                {/* Delete button (owner or admin) */}
+                {user && (user.id === r.user_id || user.role === "admin") && (
+                  <button
+                    onClick={() => handleDeleteReview(r.id)}
+                    className="absolute top-2 right-2 text-red-500 text-sm hover:underline"
+                  >
+                    Delete
+                  </button>
+                )}
+              </li>
+            ))}
+          </ul>
         )}
+      </section>
 
-        {/* DELETE BUTTON */}
-        {user && (user.id === r.user_id || user.role === "admin") && (
-          <button
-            onClick={() => handleDeleteReview(r.id)}
-            className="absolute top-2 right-2 text-red-500 text-sm hover:underline"
-          >
-            Delete
-          </button>
-        )}
-      </>
-    )}
-  </li>
-))}
-
-    </ul>
-  )}
-</section>
-
-
-      {/* Review Form (only if logged in) */}
-      {user ? (
+      {/* Review Form - only for regular users */}
+      {user && user.role !== "admin" ? (
         <section className="mt-6">
           <h3 className="text-xl font-semibold mb-2">Write a Review</h3>
           <form onSubmit={handleReviewSubmit} className="space-y-3">
@@ -283,7 +186,9 @@ export default function ProductDetails() {
           </form>
         </section>
       ) : (
-        <p className="text-gray-500 mt-4">You must be logged in to write a review.</p>
+        <p className="text-gray-500 mt-4">
+          {user?.role === "admin" ? "Admins cannot write reviews." : "You must be logged in to write a review."}
+        </p>
       )}
     </div>
   );
