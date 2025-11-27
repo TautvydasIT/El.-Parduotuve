@@ -170,6 +170,7 @@ Iš diegimo diagramos matyti, jog sistema yra talpinama Railway serveryje, klien
 **Get all**
 
 **Atsako kodai**:
+
 200	
 List of types
 
