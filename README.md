@@ -186,6 +186,7 @@ Internal server error
 **Get by id**
 
 **Atsako kodai**:
+
 200	
 Type object
 
@@ -204,6 +205,7 @@ Internal server error
 **Create**
 
 **Atsako kodai**:
+
 201	
 Type created
 
@@ -228,6 +230,7 @@ Internal server error
 **Update**
 
 **Atsako kodai**:
+
 200	
 Type updated
 
@@ -252,6 +255,7 @@ Internal server error
 **Delete**
 
 **Atsako kodai**:
+
 204	
 Type deleted
 
@@ -273,6 +277,7 @@ Internal server error
 **Get products by type**
 
 **Atsako kodai**:
+
 200	
 Products for the type
 
@@ -291,6 +296,7 @@ Internal server error
 **Get reviews by product/type**
 
 **Atsako kodai**:
+
 200	
 List of reviews
 
@@ -311,6 +317,7 @@ Internal server error
 **Get all**
 
 **Atsako kodai**:
+
 200	
 List of products
 
@@ -326,6 +333,7 @@ Internal server error
 **Get by id**
 
 **Atsako kodai**:
+
 200	
 Product object
 
@@ -344,6 +352,7 @@ Internal server error
 **Create**
 
 **Atsako kodai**:
+
 201	
 Product created
 
@@ -368,6 +377,7 @@ Internal server error
 **Update**
 
 **Atsako kodai**:
+
 200	
 Product updated
 
@@ -392,6 +402,7 @@ Internal server error
 **Delete**
 
 **Atsako kodai**:
+
 204	
 Product deleted
 
@@ -415,6 +426,7 @@ Internal server error
 **Get all**
 
 **Atsako kodai**:
+
 200	
 List of reviews
 
@@ -430,6 +442,7 @@ Internal server error
 **Get by id**
 
 **Atsako kodai**:
+
 200	
 Review object
 
@@ -448,6 +461,7 @@ Internal server error
 **Create**
 
 **Atsako kodai**:
+
 201	
 Review created
 
@@ -466,6 +480,7 @@ Internal server error
 **Update**
 
 **Atsako kodai**:
+
 200	
 Review updated
 
@@ -490,6 +505,7 @@ Internal server error
 **Delete**
 
 **Atsako kodai**:
+
 204	
 Review deleted
 
@@ -513,6 +529,7 @@ Internal server error
 **Register**
 
 **Atsako kodai**:
+
 201	
 User registered
 
@@ -534,6 +551,7 @@ Internal server error
 **Login**
 
 **Atsako kodai**:
+
 200	
 Returns access token
 
@@ -552,6 +570,7 @@ Internal server error
 **Refresh**
 
 **Atsako kodai**:
+
 200	
 New access token
 
@@ -573,6 +592,7 @@ Internal server error
 **Logout**
 
 **Atsako kodai**:
+
 200	
 Logged out
 
@@ -588,6 +608,7 @@ Internal server error
 **Me**
 
 **Atsako kodai**:
+
 200	
 Current user info
 
