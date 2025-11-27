@@ -156,10 +156,10 @@ Iš diegimo diagramos matyti, jog sistema yra talpinama Railway serveryje, klien
   <div>Paveikslėlis 20: Produktų tipo administratoriaus puslapis wireframe</div>
 </div>
 <br>
-<figure>
+<div>
   <img src="images/Paveikslėlis23.png" width="50%">
-  <figcaption>Paveikslėlis 21: Produktų tipo administratoriaus puslapis</figcaption>
-</figure>
+  <div>Paveikslėlis 21: Produktų tipo administratoriaus puslapis</div>
+</div>
 <br>
 
 ---
@@ -177,8 +177,8 @@ List of types
 Internal server error
 
 **Panaudojimo pavyzdžiai**:
-<figure>
-  <img src="images/Paveikslėlis24.png" width="50%">
-  <figcaption>Paveikslėlis 22: Get tipo užklausa/atsakymas</figcaption>
-</figure>
+<div>
+  <img src="images/a.png" width="50%">
+  <div>Paveikslėlis 22: Get tipo užklausa/atsakymas</div>
+</div>
 
