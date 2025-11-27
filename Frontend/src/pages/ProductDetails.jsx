@@ -115,35 +115,114 @@ export default function ProductDetails() {
             {reviews.map(r => (
               <li key={r.id} className="border p-3 rounded-md bg-gray-50 relative">
                 <p className="font-medium">{r.user_name || "Anonymous"}</p>
-                <p className="text-gray-600 text-sm">{r.comment}</p>
-                {r.rating && <p className="text-yellow-500 text-sm">⭐ {r.rating}</p>}
 
-                {/* Edit button (only for review owner) */}
-                {user && user.id === r.user_id && (
-                  <button
-                    onClick={() =>
-                      setReviews(prev =>
-                        prev.map(rv =>
-                          rv.id === r.id
-                            ? { ...rv, editing: true, editComment: rv.comment, editRating: rv.rating }
-                            : rv
+                {r.editing ? (
+                  <form
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      try {
+                        const token = localStorage.getItem("token");
+                        const res = await axios.put(
+                          `${API_BASE}/reviews/${r.id}`,
+                          {
+                            product_id: r.product_id,
+                            user_id: r.user_id,
+                            rating: r.editRating,
+                            comment: r.editComment,
+                          },
+                          { headers: { Authorization: `Bearer ${token}` } }
+                        );
+
+                        setReviews(prev =>
+                          prev.map(rv =>
+                            rv.id === r.id
+                              ? { ...res.data, user_name: user.name, editing: false }
+                              : rv
+                          )
+                        );
+                      } catch (err) {
+                        alert(err.response?.data?.message || "Failed to update review");
+                      }
+                    }}
+                    className="space-y-2 mt-2"
+                  >
+                    <textarea
+                      className="w-full border rounded px-2 py-1"
+                      value={r.editComment}
+                      onChange={(e) =>
+                        setReviews(prev =>
+                          prev.map(rv =>
+                            rv.id === r.id ? { ...rv, editComment: e.target.value } : rv
+                          )
                         )
-                      )
-                    }
-                    className="absolute top-2 right-16 text-blue-500 text-sm hover:underline"
-                  >
-                    Edit
-                  </button>
-                )}
+                      }
+                    />
+                    <select
+                      className="border rounded px-2 py-1"
+                      value={r.editRating}
+                      onChange={(e) =>
+                        setReviews(prev =>
+                          prev.map(rv =>
+                            rv.id === r.id ? { ...rv, editRating: Number(e.target.value) } : rv
+                          )
+                        )
+                      }
+                    >
+                      {[1, 2, 3, 4, 5].map(n => (
+                        <option key={n} value={n}>{n}</option>
+                      ))}
+                    </select>
+                    <button
+                      type="submit"
+                      className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
+                    >
+                      Save
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setReviews(prev =>
+                          prev.map(rv =>
+                            rv.id === r.id ? { ...rv, editing: false } : rv
+                          )
+                        )
+                      }
+                      className="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400 ml-2"
+                    >
+                      Cancel
+                    </button>
+                  </form>
+                ) : (
+                  <>
+                    <p className="text-gray-600 text-sm">{r.comment}</p>
+                    {r.rating && <p className="text-yellow-500 text-sm">⭐ {r.rating}</p>}
 
-                {/* Delete button (owner or admin) */}
-                {user && (user.id === r.user_id || user.role === "admin") && (
-                  <button
-                    onClick={() => handleDeleteReview(r.id)}
-                    className="absolute top-2 right-2 text-red-500 text-sm hover:underline"
-                  >
-                    Delete
-                  </button>
+                    {user && user.id === r.user_id && (
+                      <button
+                        onClick={() =>
+                          setReviews(prev =>
+                            prev.map(rv =>
+                              rv.id === r.id
+                                ? { ...rv, editing: true, editComment: rv.comment, editRating: rv.rating }
+                                : rv
+                            )
+                          )
+                        }
+                        className="absolute top-2 right-16 text-blue-500 text-sm hover:underline"
+                      >
+                        Edit
+                      </button>
+                    )}
+
+                    {user && (user.id === r.user_id || user.role === "admin") && (
+                      <button
+                        onClick={() => handleDeleteReview(r.id)}
+                        className="absolute top-2 right-2 text-red-500 text-sm hover:underline"
+                      >
+                        Delete
+                      </button>
+                    )}
+                  </>
                 )}
               </li>
             ))}
