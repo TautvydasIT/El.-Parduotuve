@@ -315,7 +315,6 @@ Internal server error
   <img src="images/g.png" width="50%">
   <div>Paveikslėlis 27: Get reviews by product/type užklausa/atsakymas</div>
 </div>
-<br>
 
 ### Produktai
 
@@ -425,7 +424,6 @@ Internal server error
   <img src="images/n.png" width="50%">
   <div>Paveikslėlis 32: Delete tipo užklausa/atsakymas</div>
 </div>
-<br>
 
 ### Atsiliepimai
 
@@ -529,7 +527,6 @@ Internal server error
   <img src="images/t.png" width="50%">
   <div>Paveikslėlis 37: Delete tipo užklausa/atsakymas</div>
 </div>
-<br>
 
 ### Autentifikacija
 
