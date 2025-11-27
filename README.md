@@ -48,3 +48,4 @@ Sistemos sudedamosios dalys:
 - **Front-end:** React.js  
 - **Back-end:** Node.js  
 - **Duomenų bazė:** MySQL
+![Sistemos diegimo diagrama](images/Paveikslėlis1.png)
