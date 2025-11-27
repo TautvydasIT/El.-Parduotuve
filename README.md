@@ -167,7 +167,7 @@ Iš diegimo diagramos matyti, jog sistema yra talpinama Railway serveryje, klien
 ## API specifikacija
 
 ### Tipai
-**Get**
+**Get all**
 
 **Atsako kodai**:
 200	
@@ -179,6 +179,425 @@ Internal server error
 **Panaudojimo pavyzdžiai**:
 <div>
   <img src="images/a.png" width="50%">
-  <div>Paveikslėlis 22: Get tipo užklausa/atsakymas</div>
+  <div>Paveikslėlis 22: Get all tipo užklausa/atsakymas</div>
 </div>
 
+**Get by id**
+
+**Atsako kodai**:
+200	
+Type object
+
+404	
+Type not found
+
+500	
+Internal server error
+
+**Panaudojimo pavyzdžiai**:
+<div>
+  <img src="images/b.png" width="50%">
+  <div>Paveikslėlis 22: Get by id tipo užklausa/atsakymas</div>
+</div>
+
+**Create**
+
+**Atsako kodai**:
+201	
+Type created
+
+400	
+Name required
+
+403	
+Forbidden (requires admin)
+
+409	
+Duplicate type name
+
+500	
+Internal server error
+
+**Panaudojimo pavyzdžiai**:
+<div>
+  <img src="images/c.png" width="50%">
+  <div>Paveikslėlis 23: Create tipo užklausa/atsakymas</div>
+</div>
+
+**Update**
+
+**Atsako kodai**:
+200	
+Type updated
+
+400	
+Name required
+
+403	
+Forbidden (requires admin)
+
+404	
+Type not found
+
+500	
+Internal server error
+
+**Panaudojimo pavyzdžiai**:
+<div>
+  <img src="images/d.png" width="50%">
+  <div>Paveikslėlis 24: Update tipo užklausa/atsakymas</div>
+</div>
+
+**Delete**
+
+**Atsako kodai**:
+204	
+Type deleted
+
+403	
+Forbidden (requires admin)
+
+404	
+Type not found
+
+500	
+Internal server error
+
+**Panaudojimo pavyzdžiai**:
+<div>
+  <img src="images/e.png" width="50%">
+  <div>Paveikslėlis 25: Delete tipo užklausa/atsakymas</div>
+</div>
+
+**Get products by type**
+
+**Atsako kodai**:
+200	
+Products for the type
+
+404	
+Type not found
+
+500	
+Internal server error
+
+**Panaudojimo pavyzdžiai**:
+<div>
+  <img src="images/f.png" width="50%">
+  <div>Paveikslėlis 26: Get products by type užklausa/atsakymas</div>
+</div>
+
+**Get reviews by product/type**
+
+**Atsako kodai**:
+200	
+List of reviews
+
+404	
+Type or product not found
+
+500	
+Internal server error
+
+**Panaudojimo pavyzdžiai**:
+<div>
+  <img src="images/g.png" width="50%">
+  <div>Paveikslėlis 27: Get reviews by product/type užklausa/atsakymas</div>
+</div>
+
+### Produktai
+
+**Get all**
+
+**Atsako kodai**:
+200	
+List of products
+
+500	
+Internal server error
+
+**Panaudojimo pavyzdžiai**:
+<div>
+  <img src="images/h.png" width="50%">
+  <div>Paveikslėlis 28: Get all tipo užklausa/atsakymas</div>
+</div>
+
+**Get by id**
+
+**Atsako kodai**:
+200	
+Product object
+
+404	
+Product not found
+
+500	
+Internal server error
+
+**Panaudojimo pavyzdžiai**:
+<div>
+  <img src="images/k.png" width="50%">
+  <div>Paveikslėlis 29: Get by id tipo užklausa/atsakymas</div>
+</div>
+
+**Create**
+
+**Atsako kodai**:
+201	
+Product created
+
+400	
+Invalid payload
+
+403	
+Forbidden (requires admin)
+
+409	
+Product already exists
+
+500	
+Internal server error
+
+**Panaudojimo pavyzdžiai**:
+<div>
+  <img src="images/l.png" width="50%">
+  <div>Paveikslėlis 30: Create tipo užklausa/atsakymas</div>
+</div>
+
+**Update**
+
+**Atsako kodai**:
+200	
+Product updated
+
+400	
+Invalid input data
+
+403	
+Forbidden (requires admin)
+
+404	
+Product not found
+
+500	
+Internal server error
+
+**Panaudojimo pavyzdžiai**:
+<div>
+  <img src="images/m.png" width="50%">
+  <div>Paveikslėlis 31: Update tipo užklausa/atsakymas</div>
+</div>
+
+**Delete**
+
+**Atsako kodai**:
+204	
+Product deleted
+
+403	
+Forbidden (requires admin)
+
+404	
+Product not found
+
+500	
+Internal server error
+
+**Panaudojimo pavyzdžiai**:
+<div>
+  <img src="images/n.png" width="50%">
+  <div>Paveikslėlis 32: Delete tipo užklausa/atsakymas</div>
+</div>
+
+### Atsiliepimai
+
+**Get all**
+
+**Atsako kodai**:
+200	
+List of reviews
+
+500	
+Internal server error
+
+**Panaudojimo pavyzdžiai**:
+<div>
+  <img src="images/o.png" width="50%">
+  <div>Paveikslėlis 33: Get all tipo užklausa/atsakymas</div>
+</div>
+
+**Get by id**
+
+**Atsako kodai**:
+200	
+Review object
+
+404	
+Review not found
+
+500	
+Internal server error
+
+**Panaudojimo pavyzdžiai**:
+<div>
+  <img src="images/p.png" width="50%">
+  <div>Paveikslėlis 34: Get by id tipo užklausa/atsakymas</div>
+</div>
+
+**Create**
+
+**Atsako kodai**:
+201	
+Review created
+
+400	
+Invalid payload
+
+500	
+Internal server error
+
+**Panaudojimo pavyzdžiai**:
+<div>
+  <img src="images/r.png" width="50%">
+  <div>Paveikslėlis 35: Create tipo užklausa/atsakymas</div>
+</div>
+
+**Update**
+
+**Atsako kodai**:
+200	
+Review updated
+
+400	
+Invalid payload or user_id mismatch
+
+403	
+Forbidden (not owner/admin)
+
+404	
+Review not found
+
+500	
+Internal server error
+
+**Panaudojimo pavyzdžiai**:
+<div>
+  <img src="images/s.png" width="50%">
+  <div>Paveikslėlis 36: Update tipo užklausa/atsakymas</div>
+</div>
+
+**Delete**
+
+**Atsako kodai**:
+204	
+Review deleted
+
+403	
+Forbidden (not owner/admin)
+
+404	
+Review not found
+
+500	
+Internal server error
+
+**Panaudojimo pavyzdžiai**:
+<div>
+  <img src="images/t.png" width="50%">
+  <div>Paveikslėlis 37: Delete tipo užklausa/atsakymas</div>
+</div>
+
+### Autentifikacija
+
+**Register**
+
+**Atsako kodai**:
+201	
+User registered
+
+400	
+Missing fields
+
+409	
+Email already exists
+
+500	
+Internal server error
+
+**Panaudojimo pavyzdžiai**:
+<div>
+  <img src="images/i.png" width="50%">
+  <div>Paveikslėlis 38: Register tipo užklausa/atsakymas</div>
+</div>
+
+**Login**
+
+**Atsako kodai**:
+200	
+Returns access token
+
+401	
+Invalid credentials
+
+500	
+Internal server error
+
+**Panaudojimo pavyzdžiai**:
+<div>
+  <img src="images/y.png" width="50%">
+  <div>Paveikslėlis 39: Login tipo užklausa/atsakymas</div>
+</div>
+
+**Refresh**
+
+**Atsako kodai**:
+200	
+New access token
+
+401	
+Invalid or missing refresh token
+
+403	
+Session expired or invalid
+
+500	
+Internal server error
+
+**Panaudojimo pavyzdžiai**:
+<div>
+  <img src="images/u.png" width="50%">
+  <div>Paveikslėlis 40: Refresh tipo užklausa/atsakymas</div>
+</div>
+
+**Logout**
+
+**Atsako kodai**:
+200	
+Logged out
+
+500	
+Internal server error
+
+**Panaudojimo pavyzdžiai**:
+<div>
+  <img src="images/v.png" width="50%">
+  <div>Paveikslėlis 41: Logout tipo užklausa/atsakymas</div>
+</div>
+
+**Me**
+
+**Atsako kodai**:
+200	
+Current user info
+
+404	
+User not found
+
+500	
+Internal server error
+
+**Panaudojimo pavyzdžiai**:
+<div>
+  <img src="images/z.png" width="50%">
+  <div>Paveikslėlis 42: Me tipo užklausa/atsakymas</div>
+</div>
