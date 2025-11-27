@@ -61,7 +61,7 @@ Iš diegimo diagramos matyti, jog sistema yra talpinama Railway serveryje, klien
 
 <figure>
   <img src="images/Paveikslėlis4.png" width="50%">
-  <figcaption>Paveikslėlis 2: Pagrindinis puslapis wireframe</figcaption>
+  <figcaption style="margin:0; text-align:center;">Paveikslėlis 2: Pagrindinis puslapis wireframe</figcaption>
 </figure>
 
 <figure>
