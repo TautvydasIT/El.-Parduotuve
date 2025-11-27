@@ -8,6 +8,7 @@ T120B165 Saityno taikomųjų programų projektavimas - Projektas - Elektroninė 
 2. [Pasirinktų technologijų aprašymas](#pasirinktų-technologijų-aprašymas)
 3. [Naudotojo sąsajos projektas](#naudotojo-sąsajos-projektas)
 4. [API specifikacija](#api-specifikacija)
+5. [Išvados](#išvados)
 
 ---
 
@@ -181,7 +182,7 @@ Internal server error
   <img src="images/a.png" width="50%">
   <div>Paveikslėlis 22: Get all tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Get by id**
 
 **Atsako kodai**:
@@ -200,7 +201,7 @@ Internal server error
   <img src="images/b.png" width="50%">
   <div>Paveikslėlis 22: Get by id tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Create**
 
 **Atsako kodai**:
@@ -225,7 +226,7 @@ Internal server error
   <img src="images/c.png" width="50%">
   <div>Paveikslėlis 23: Create tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Update**
 
 **Atsako kodai**:
@@ -250,7 +251,7 @@ Internal server error
   <img src="images/d.png" width="50%">
   <div>Paveikslėlis 24: Update tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Delete**
 
 **Atsako kodai**:
@@ -272,7 +273,7 @@ Internal server error
   <img src="images/e.png" width="50%">
   <div>Paveikslėlis 25: Delete tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Get products by type**
 
 **Atsako kodai**:
@@ -291,7 +292,7 @@ Internal server error
   <img src="images/f.png" width="50%">
   <div>Paveikslėlis 26: Get products by type užklausa/atsakymas</div>
 </div>
-
+<br>
 **Get reviews by product/type**
 
 **Atsako kodai**:
@@ -310,7 +311,7 @@ Internal server error
   <img src="images/g.png" width="50%">
   <div>Paveikslėlis 27: Get reviews by product/type užklausa/atsakymas</div>
 </div>
-
+<br>
 ### Produktai
 
 **Get all**
@@ -328,7 +329,7 @@ Internal server error
   <img src="images/h.png" width="50%">
   <div>Paveikslėlis 28: Get all tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Get by id**
 
 **Atsako kodai**:
@@ -347,7 +348,7 @@ Internal server error
   <img src="images/k.png" width="50%">
   <div>Paveikslėlis 29: Get by id tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Create**
 
 **Atsako kodai**:
@@ -372,7 +373,7 @@ Internal server error
   <img src="images/l.png" width="50%">
   <div>Paveikslėlis 30: Create tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Update**
 
 **Atsako kodai**:
@@ -397,7 +398,7 @@ Internal server error
   <img src="images/m.png" width="50%">
   <div>Paveikslėlis 31: Update tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Delete**
 
 **Atsako kodai**:
@@ -419,7 +420,7 @@ Internal server error
   <img src="images/n.png" width="50%">
   <div>Paveikslėlis 32: Delete tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 ### Atsiliepimai
 
 **Get all**
@@ -437,7 +438,7 @@ Internal server error
   <img src="images/o.png" width="50%">
   <div>Paveikslėlis 33: Get all tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Get by id**
 
 **Atsako kodai**:
@@ -456,7 +457,7 @@ Internal server error
   <img src="images/p.png" width="50%">
   <div>Paveikslėlis 34: Get by id tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Create**
 
 **Atsako kodai**:
@@ -475,7 +476,7 @@ Internal server error
   <img src="images/r.png" width="50%">
   <div>Paveikslėlis 35: Create tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Update**
 
 **Atsako kodai**:
@@ -500,7 +501,7 @@ Internal server error
   <img src="images/s.png" width="50%">
   <div>Paveikslėlis 36: Update tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Delete**
 
 **Atsako kodai**:
@@ -522,7 +523,7 @@ Internal server error
   <img src="images/t.png" width="50%">
   <div>Paveikslėlis 37: Delete tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 ### Autentifikacija
 
 **Register**
@@ -546,7 +547,7 @@ Internal server error
   <img src="images/i.png" width="50%">
   <div>Paveikslėlis 38: Register tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Login**
 
 **Atsako kodai**:
@@ -565,7 +566,7 @@ Internal server error
   <img src="images/y.png" width="50%">
   <div>Paveikslėlis 39: Login tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Refresh**
 
 **Atsako kodai**:
@@ -587,7 +588,7 @@ Internal server error
   <img src="images/u.png" width="50%">
   <div>Paveikslėlis 40: Refresh tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Logout**
 
 **Atsako kodai**:
@@ -603,7 +604,7 @@ Internal server error
   <img src="images/v.png" width="50%">
   <div>Paveikslėlis 41: Logout tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Me**
 
 **Atsako kodai**:
@@ -622,3 +623,6 @@ Internal server error
   <img src="images/z.png" width="50%">
   <div>Paveikslėlis 42: Me tipo užklausa/atsakymas</div>
 </div>
+<br>
+---
+## Išvados
