@@ -106,9 +106,15 @@ export const deleteType = async (req, res) => {
   try {
     const id = req.params.id;
     const [result] = await db.query("DELETE FROM types WHERE id = ?", [id]);
-    if (result.affectedRows === 0) return res.status(404).json({ message: "Type not found" });
+    if (result.affectedRows === 0)
+      return res.status(404).json({ message: "Type not found" });
     res.status(204).send();
   } catch (err) {
+    if (err.code === "ER_ROW_IS_REFERENCED_2") {
+      return res
+        .status(400)
+        .json({ message: "Cannot delete type because it has products" });
+    }
     res.status(500).json({ error: err.message });
   }
 };

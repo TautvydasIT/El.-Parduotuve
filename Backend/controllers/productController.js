@@ -119,15 +119,21 @@ await db.query(
   }
 };
 
-
-// DELETE /api/products/:id
 export const deleteProduct = async (req, res) => {
   try {
-    const [result] = await db.query("DELETE FROM products WHERE id = ?", [req.params.id]);
+    const [result] = await db.query("DELETE FROM products WHERE id = ?", [
+      req.params.id,
+    ]);
     if (result.affectedRows === 0)
       return res.status(404).json({ message: "Product not found" });
     res.status(204).send();
   } catch (err) {
+    // Check if it's a foreign key constraint error
+    if (err.code === "ER_ROW_IS_REFERENCED_2") {
+      return res
+        .status(400)
+        .json({ message: "Cannot delete product because it has reviews" });
+    }
     res.status(500).json({ error: err.message });
   }
 };
