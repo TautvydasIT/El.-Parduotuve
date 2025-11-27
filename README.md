@@ -6,7 +6,7 @@ T120B165 Saityno taikomųjų programų projektavimas - Projektas - Elektroninė 
    - [Sistemos paskirtis](#sistemos-paskirtis)
    - [Funkciniai reikalavimai](#funkciniai-reikalavimai)
 2. [Pasirinktų technologijų aprašymas](#pasirinktų-technologijų-aprašymas)
-3. [Naudotojo sąsajos projektas](#naudotojo_sąsajos_projektas)
+3. [Naudotojo sąsajos projektas](#naudotojo-sąsajos-projektas)
 
 ---
 
