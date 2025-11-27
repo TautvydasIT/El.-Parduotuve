@@ -51,7 +51,7 @@ Sistemos sudedamosios dalys:
 - **Back-end:** Node.js  
 - **Duomenų bazė:** MySQL
 <div style="text-align:center;">
-  <img src="images/Paveikslėlis1.png" width="50%">
+  <img src="images/Paveikslėlis1.png" width="40%">
   <div>Paveikslėlis 1: Sistemos diegimo diagrama</div>
 </div>
 <br>
