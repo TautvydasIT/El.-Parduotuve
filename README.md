@@ -154,3 +154,8 @@ Iš diegimo diagramos matyti, jog sistema yra talpinama Railway serveryje, klien
   <figcaption>Paveikslėlis 20: Produktų tipo administratoriaus puslapis wireframe</figcaption>
 </figure>
 
+<figure>
+  <img src="images/Paveikslėlis23.png" width="50%">
+  <figcaption>Paveikslėlis 21: Produktų tipo administratoriaus puslapis</figcaption>
+</figure>
+
