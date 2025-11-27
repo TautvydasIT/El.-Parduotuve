@@ -7,6 +7,7 @@ T120B165 Saityno taikomųjų programų projektavimas - Projektas - Elektroninė 
    - [Funkciniai reikalavimai](#funkciniai-reikalavimai)
 2. [Pasirinktų technologijų aprašymas](#pasirinktų-technologijų-aprašymas)
 3. [Naudotojo sąsajos projektas](#naudotojo-sąsajos-projektas)
+4. [API specifikacija](#api-specifikacija)
 
 ---
 
@@ -160,3 +161,8 @@ Iš diegimo diagramos matyti, jog sistema yra talpinama Railway serveryje, klien
   <figcaption>Paveikslėlis 21: Produktų tipo administratoriaus puslapis</figcaption>
 </figure>
 <br>
+
+---
+
+## API specifikacija
+
