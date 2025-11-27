@@ -36,7 +36,6 @@ Sistema turi būti pasiekiama saityne, taip pat palaikyti tris roles – adminis
 - Peržiūrėti prekių rūšis ir jose esančias prekes.
 - Peržiūrėti prekių atsiliepimus.
 - Rašyti/ištrinti/redaguoti savo atsiliepimą.
-- Įvertinti kitų atsiliepimus patinka/nepatinka mygtukais.
 
 #### Neregistruoti lankytojai gali:
 - Peržiūrėti prekių rūšis ir jose esančias prekes.
