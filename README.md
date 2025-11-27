@@ -2,10 +2,10 @@
 T120B165 Saityno taikomųjų programų projektavimas - Projektas - Elektroninė parduotuvė
 
 ## Table of Contents
-1. [Sprendžiamo uždavinio aprašymas](#sprendziamo-uzdavinio-aprasymas)
+1. [Sprendžiamo uždavinio aprašymas](#sprendžiamo-uždavinio-aprašymas)
    - [Sistemos paskirtis](#sistemos-paskirtis)
    - [Funkciniai reikalavimai](#funkciniai-reikalavimai)
-2. [Pasirinktų technologijų aprašymas](#pasirinktu-technologiju-aprasymas)
+2. [Pasirinktų technologijų aprašymas](#pasirinktų-technologijų-aprašymas)
 
 ---
 
