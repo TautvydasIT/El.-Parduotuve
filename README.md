@@ -623,7 +623,6 @@ Internal server error
   <img src="images/z.png" width="50%">
   <div>Paveikslėlis 42: Me tipo užklausa/atsakymas</div>
 </div>
-<br>
 
 ---
 
