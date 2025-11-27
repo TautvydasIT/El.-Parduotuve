@@ -312,6 +312,7 @@ Internal server error
   <div>Paveikslėlis 27: Get reviews by product/type užklausa/atsakymas</div>
 </div>
 <br>
+
 ### Produktai
 
 **Get all**
@@ -421,6 +422,7 @@ Internal server error
   <div>Paveikslėlis 32: Delete tipo užklausa/atsakymas</div>
 </div>
 <br>
+
 ### Atsiliepimai
 
 **Get all**
@@ -524,6 +526,7 @@ Internal server error
   <div>Paveikslėlis 37: Delete tipo užklausa/atsakymas</div>
 </div>
 <br>
+
 ### Autentifikacija
 
 **Register**
