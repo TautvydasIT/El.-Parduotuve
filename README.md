@@ -48,5 +48,8 @@ Sistemos sudedamosios dalys:
 - **Front-end:** React.js  
 - **Back-end:** Node.js  
 - **Duomenų bazė:** MySQL
-![Sistemos diegimo diagrama](images/Paveikslėlis1.png)
-<img src="images/Paveikslėlis1.png" width="40%">
+<img src="images/Paveikslėlis1.png" width="50%">
+<figure>
+  <img src="images/Paveikslėlis1.png" width="50%">
+  <figcaption>Paveikslėlis 1: Pagrindinis parduotuvės puslapis</figcaption>
+</figure>
