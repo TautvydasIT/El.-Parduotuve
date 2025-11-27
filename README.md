@@ -627,3 +627,5 @@ Internal server error
 ---
 
 ## Išvados
+
+Sukurta saityno taikomoji programa. Realizuotas backend, frontend ir duomenų bazė, viskas pasiekiama saityne, pritaikyta JWT autentifikacija ir autorizacija. Padaryta tvarkinga, minimalistinė naudotojo sąsaja. Projekto metu išmokta daugiau apie debesų technologijas, saugumo užtikrinimą, REST principus.
