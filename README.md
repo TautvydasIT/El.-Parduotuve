@@ -52,8 +52,7 @@ Sistemos sudedamosios dalys:
   <img src="images/Paveikslėlis1.png" width="50%">
   <div>Paveikslėlis 1: Sistemos diegimo diagrama</div>
 </div>
-
-
+<br>
 Iš diegimo diagramos matyti, jog sistema yra talpinama Railway serveryje, klientas bendrauja su sistema per HTTPS protokolą.
 
 ---
