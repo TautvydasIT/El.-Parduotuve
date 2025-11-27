@@ -8,6 +8,7 @@ T120B165 Saityno taikomųjų programų projektavimas - Projektas - Elektroninė 
 2. [Pasirinktų technologijų aprašymas](#pasirinktų-technologijų-aprašymas)
 3. [Naudotojo sąsajos projektas](#naudotojo-sąsajos-projektas)
 4. [API specifikacija](#api-specifikacija)
+   - [Tipai](#tipai)
    - [Produktai](#produktai)
    - [Atsiliepimai](#atsiliepimai)
    - [Autentifikacija](#autentifikacija)
