@@ -48,10 +48,6 @@ Sistemos sudedamosios dalys:
 - **Front-end:** React.js  
 - **Back-end:** Node.js  
 - **Duomenų bazė:** MySQL
-<figure>
-  <img src="images/Paveikslėlis1.png" width="50%">
-  <figcaption>Paveikslėlis 1: Sistemos diegimo diagrama</figcaption>
-</figure>
 <div style="text-align:center;">
   <img src="images/Paveikslėlis1.png" width="50%">
   <div>Paveikslėlis 1: Sistemos diegimo diagrama</div>
@@ -63,100 +59,100 @@ Iš diegimo diagramos matyti, jog sistema yra talpinama Railway serveryje, klien
 
 ## Naudotojo sąsajos projektas
 
-<figure>
+<div>
   <img src="images/Paveikslėlis4.png" width="50%">
-  <figcaption style="margin:0; text-align:center;">Paveikslėlis 2: Pagrindinis puslapis wireframe</figcaption>
-</figure>
+  <div style="margin:0; text-align:center;">Paveikslėlis 2: Pagrindinis puslapis wireframe</div>
+</div>
 
-<figure>
+<div>
   <img src="images/Paveikslėlis5.png" width="50%">
-  <figcaption>Paveikslėlis 3: Pagrindinis puslapis</figcaption>
-</figure>
+  <div>Paveikslėlis 3: Pagrindinis puslapis</div>
+</div>
 
-<figure>
+<div>
   <img src="images/Paveikslėlis6.png" width="50%">
-  <figcaption>Paveikslėlis 4: Informacijos puslapis „About us“ wireframe</figcaption>
-</figure>
+  <div>Paveikslėlis 4: Informacijos puslapis „About us“ wireframe</div>
+</div>
 
-<figure>
+<div>
   <img src="images/Paveikslėlis7.png" width="50%">
-  <figcaption>Paveikslėlis 5: Informacijos puslapis „About us“</figcaption>
-</figure>
+  <div>Paveikslėlis 5: Informacijos puslapis „About us“</div>
+</div>
 
-<figure>
+<div>
   <img src="images/Paveikslėlis8.png" width="50%">
-  <figcaption>Paveikslėlis 6: Pagalbos puslapis „Help“ wireframe</figcaption>
-</figure>
+  <div>Paveikslėlis 6: Pagalbos puslapis „Help“ wireframe</div>
+</div>
 
-<figure>
+<div>
   <img src="images/Paveikslėlis9.png" width="50%">
-  <figcaption>Paveikslėlis 7: Pagalbos puslapis „Help“</figcaption>
-</figure>
+  <div>Paveikslėlis 7: Pagalbos puslapis „Help“</div>
+</div>
 
-<figure>
+<div>
   <img src="images/Paveikslėlis10.png" width="50%">
-  <figcaption>Paveikslėlis 8: Tam tikro tipo produktų puslapis wireframe</figcaption>
-</figure>
+  <div>Paveikslėlis 8: Tam tikro tipo produktų puslapis wireframe</div>
+</div>
 
-<figure>
+<div>
   <img src="images/Paveikslėlis11.png" width="50%">
-  <figcaption>Paveikslėlis 9: Tam tikro tipo produktų puslapis</figcaption>
-</figure>
+  <div>Paveikslėlis 9: Tam tikro tipo produktų puslapis</div>
+</div>
 
-<figure>
+<div>
   <img src="images/Paveikslėlis12.png" width="50%">
-  <figcaption>Paveikslėlis 10: Tam tikro produkto puslapis wireframe</figcaption>
-</figure>
+  <div>Paveikslėlis 10: Tam tikro produkto puslapis wireframe</div>
+</div>
 
-<figure>
+<div>
   <img src="images/Paveikslėlis13.png" width="50%">
-  <figcaption>Paveikslėlis 11: Tam tikro produkto puslapis</figcaption>
-</figure>
+  <div>Paveikslėlis 11: Tam tikro produkto puslapis</div>
+</div>
 
-<figure>
+<div>
   <img src="images/Paveikslėlis14.png" width="50%">
-  <figcaption>Paveikslėlis 12: Prisijungimo modalinis langas wireframe</figcaption>
-</figure>
+  <div>Paveikslėlis 12: Prisijungimo modalinis langas wireframe</div>
+</div>
 
-<figure>
+<div>
   <img src="images/Paveikslėlis15.png" width="50%">
-  <figcaption>Paveikslėlis 13: Prisijungimo modalinis langas</figcaption>
-</figure>
+  <div>Paveikslėlis 13: Prisijungimo modalinis langas</div>
+</div>
 
-<figure>
+<div>
   <img src="images/Paveikslėlis16.png" width="50%">
-  <figcaption>Paveikslėlis 14: Registracijos modalinis langas wireframe</figcaption>
-</figure>
+  <div>Paveikslėlis 14: Registracijos modalinis langas wireframe</div>
+</div>
 
-<figure>
+<div>
   <img src="images/Paveikslėlis17.png" width="50%">
-  <figcaption>Paveikslėlis 15: Registracijos modalinis langas</figcaption>
-</figure>
+  <div>Paveikslėlis 15: Registracijos modalinis langas</div>
+</div>
 
-<figure>
+<div>
   <img src="images/Paveikslėlis18.png" width="50%">
-  <figcaption>Paveikslėlis 16: Produkto administratoriaus puslapis wireframe</figcaption>
-</figure>
+  <div>Paveikslėlis 16: Produkto administratoriaus puslapis wireframe</div>
+</div>
 
-<figure>
+<div>
   <img src="images/Paveikslėlis19.png" width="50%">
-  <figcaption>Paveikslėlis 17: Produkto administratoriaus puslapis</figcaption>
-</figure>
+  <div>Paveikslėlis 17: Produkto administratoriaus puslapis</div>
+</div>
 
-<figure>
+<div>
   <img src="images/Paveikslėlis20.png" width="50%">
-  <figcaption>Paveikslėlis 18: Pagrindinis administratoriaus puslapis wireframe</figcaption>
-</figure>
+  <div>Paveikslėlis 18: Pagrindinis administratoriaus puslapis wireframe</div>
+</div>
 
-<figure>
+<div>
   <img src="images/Paveikslėlis21.png" width="50%">
-  <figcaption>Paveikslėlis 19: Pagrindinis administratoriaus puslapis</figcaption>
-</figure>
+  <div>Paveikslėlis 19: Pagrindinis administratoriaus puslapis</div>
+</div>
 
-<figure>
+<div>
   <img src="images/Paveikslėlis22.png" width="50%">
-  <figcaption>Paveikslėlis 20: Produktų tipo administratoriaus puslapis wireframe</figcaption>
-</figure>
+  <div>Paveikslėlis 20: Produktų tipo administratoriaus puslapis wireframe</div>
+</div>
 
 <figure>
   <img src="images/Paveikslėlis23.png" width="50%">
