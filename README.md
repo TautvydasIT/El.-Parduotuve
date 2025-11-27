@@ -8,6 +8,11 @@ T120B165 Saityno taikomųjų programų projektavimas - Projektas - Elektroninė 
 2. [Pasirinktų technologijų aprašymas](#pasirinktų-technologijų-aprašymas)
 3. [Naudotojo sąsajos projektas](#naudotojo-sąsajos-projektas)
 4. [API specifikacija](#api-specifikacija)
+   - [Tipai](#tipai)
+   - [Produktai](#produktai)
+   - [Atsiliepimai](#atsiliepimai)
+   - [Autentifikacija](#autentifikacija)
+6. [Išvados](#išvados)
 
 ---
 
@@ -36,7 +41,6 @@ Sistema turi būti pasiekiama saityne, taip pat palaikyti tris roles – adminis
 - Peržiūrėti prekių rūšis ir jose esančias prekes.
 - Peržiūrėti prekių atsiliepimus.
 - Rašyti/ištrinti/redaguoti savo atsiliepimą.
-- Įvertinti kitų atsiliepimus patinka/nepatinka mygtukais.
 
 #### Neregistruoti lankytojai gali:
 - Peržiūrėti prekių rūšis ir jose esančias prekes.
@@ -170,6 +174,7 @@ Iš diegimo diagramos matyti, jog sistema yra talpinama Railway serveryje, klien
 **Get all**
 
 **Atsako kodai**:
+
 200	
 List of types
 
@@ -181,10 +186,11 @@ Internal server error
   <img src="images/a.png" width="50%">
   <div>Paveikslėlis 22: Get all tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Get by id**
 
 **Atsako kodai**:
+
 200	
 Type object
 
@@ -199,10 +205,11 @@ Internal server error
   <img src="images/b.png" width="50%">
   <div>Paveikslėlis 22: Get by id tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Create**
 
 **Atsako kodai**:
+
 201	
 Type created
 
@@ -223,10 +230,11 @@ Internal server error
   <img src="images/c.png" width="50%">
   <div>Paveikslėlis 23: Create tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Update**
 
 **Atsako kodai**:
+
 200	
 Type updated
 
@@ -247,10 +255,11 @@ Internal server error
   <img src="images/d.png" width="50%">
   <div>Paveikslėlis 24: Update tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Delete**
 
 **Atsako kodai**:
+
 204	
 Type deleted
 
@@ -268,10 +277,11 @@ Internal server error
   <img src="images/e.png" width="50%">
   <div>Paveikslėlis 25: Delete tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Get products by type**
 
 **Atsako kodai**:
+
 200	
 Products for the type
 
@@ -286,10 +296,11 @@ Internal server error
   <img src="images/f.png" width="50%">
   <div>Paveikslėlis 26: Get products by type užklausa/atsakymas</div>
 </div>
-
+<br>
 **Get reviews by product/type**
 
 **Atsako kodai**:
+
 200	
 List of reviews
 
@@ -310,6 +321,7 @@ Internal server error
 **Get all**
 
 **Atsako kodai**:
+
 200	
 List of products
 
@@ -321,10 +333,11 @@ Internal server error
   <img src="images/h.png" width="50%">
   <div>Paveikslėlis 28: Get all tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Get by id**
 
 **Atsako kodai**:
+
 200	
 Product object
 
@@ -339,10 +352,11 @@ Internal server error
   <img src="images/k.png" width="50%">
   <div>Paveikslėlis 29: Get by id tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Create**
 
 **Atsako kodai**:
+
 201	
 Product created
 
@@ -363,10 +377,11 @@ Internal server error
   <img src="images/l.png" width="50%">
   <div>Paveikslėlis 30: Create tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Update**
 
 **Atsako kodai**:
+
 200	
 Product updated
 
@@ -387,10 +402,11 @@ Internal server error
   <img src="images/m.png" width="50%">
   <div>Paveikslėlis 31: Update tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Delete**
 
 **Atsako kodai**:
+
 204	
 Product deleted
 
@@ -414,6 +430,7 @@ Internal server error
 **Get all**
 
 **Atsako kodai**:
+
 200	
 List of reviews
 
@@ -425,10 +442,11 @@ Internal server error
   <img src="images/o.png" width="50%">
   <div>Paveikslėlis 33: Get all tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Get by id**
 
 **Atsako kodai**:
+
 200	
 Review object
 
@@ -443,10 +461,11 @@ Internal server error
   <img src="images/p.png" width="50%">
   <div>Paveikslėlis 34: Get by id tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Create**
 
 **Atsako kodai**:
+
 201	
 Review created
 
@@ -461,10 +480,11 @@ Internal server error
   <img src="images/r.png" width="50%">
   <div>Paveikslėlis 35: Create tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Update**
 
 **Atsako kodai**:
+
 200	
 Review updated
 
@@ -485,10 +505,11 @@ Internal server error
   <img src="images/s.png" width="50%">
   <div>Paveikslėlis 36: Update tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Delete**
 
 **Atsako kodai**:
+
 204	
 Review deleted
 
@@ -512,6 +533,7 @@ Internal server error
 **Register**
 
 **Atsako kodai**:
+
 201	
 User registered
 
@@ -529,10 +551,11 @@ Internal server error
   <img src="images/i.png" width="50%">
   <div>Paveikslėlis 38: Register tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Login**
 
 **Atsako kodai**:
+
 200	
 Returns access token
 
@@ -547,10 +570,11 @@ Internal server error
   <img src="images/y.png" width="50%">
   <div>Paveikslėlis 39: Login tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Refresh**
 
 **Atsako kodai**:
+
 200	
 New access token
 
@@ -568,10 +592,11 @@ Internal server error
   <img src="images/u.png" width="50%">
   <div>Paveikslėlis 40: Refresh tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Logout**
 
 **Atsako kodai**:
+
 200	
 Logged out
 
@@ -583,10 +608,11 @@ Internal server error
   <img src="images/v.png" width="50%">
   <div>Paveikslėlis 41: Logout tipo užklausa/atsakymas</div>
 </div>
-
+<br>
 **Me**
 
 **Atsako kodai**:
+
 200	
 Current user info
 
@@ -601,3 +627,9 @@ Internal server error
   <img src="images/z.png" width="50%">
   <div>Paveikslėlis 42: Me tipo užklausa/atsakymas</div>
 </div>
+
+---
+
+## Išvados
+
+Sukurta saityno taikomoji programa. Realizuotas backend, frontend ir duomenų bazė, viskas pasiekiama saityne, pritaikyta JWT autentifikacija ir autorizacija. Padaryta tvarkinga, minimalistinė naudotojo sąsaja. Projekto metu išmokta daugiau apie debesų technologijas, saugumo užtikrinimą, REST principus.
