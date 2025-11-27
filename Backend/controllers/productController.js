@@ -77,26 +77,32 @@ export const updateProduct = async (req, res) => {
     const { id } = req.params;
 
     // Validate required fields
-    if (
-      typeof brand !== "string" ||
-      typeof name !== "string" ||
-      typeof type_id !== "number" ||
-      typeof price !== "number"
-    ) {
-      return res.status(400).json({ message: "Invalid input data" });
-    }
+    const priceNum = Number(price);
+const typeIdNum = Number(type_id);
 
-    // Fetch the product to ensure it exists
-    const [products] = await db.query("SELECT * FROM products WHERE id = ?", [id]);
-    if (products.length === 0) {
-      return res.status(404).json({ message: "Product not found" });
-    }
+if (
+  typeof brand !== "string" ||
+  typeof name !== "string" ||
+  isNaN(typeIdNum) ||
+  isNaN(priceNum)
+) {
+  return res.status(400).json({ message: "Invalid input data" });
+}
 
-    // Update the product
-    await db.query(
-      "UPDATE products SET name = ?, brand = ?, type_id = ?, price = ?, description = ?, image = ? WHERE id = ?",
-      [name, brand, type_id, price, description || null, image || null, id]
-    );
+// Then use the numeric values for update
+await db.query(
+  "UPDATE products SET name = ?, brand = ?, type_id = ?, price = ?, description = ?, image = ? WHERE id = ?",
+  [
+    name,
+    brand,
+    typeIdNum,
+    priceNum,
+    description !== undefined ? description : null,
+    image !== undefined ? image : null,
+    id
+  ]
+);
+
 
     res.status(200).json({
       id,
