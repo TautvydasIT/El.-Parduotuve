@@ -25,10 +25,10 @@ export const getProductById = async (req, res) => {
 
 
 
-// POST /api/products
+/// POST /api/products
 export const createProduct = async (req, res) => {
   try {
-    const { brand, name, type_id, price, description } = req.body;
+    const { brand, name, type_id, price, description, image } = req.body;
 
     // Validate required fields
     if (
@@ -47,8 +47,8 @@ export const createProduct = async (req, res) => {
     }
 
     const [result] = await db.query(
-      "INSERT INTO products (brand, type_id, name, price, description) VALUES (?, ?, ?, ?, ?)",
-      [brand, type_id, name, price, description || null]
+      "INSERT INTO products (brand, type_id, name, price, description, image) VALUES (?, ?, ?, ?, ?, ?)",
+      [brand, type_id, name, price, description || null, image || null]
     );
 
     res.status(201).json({
@@ -58,6 +58,7 @@ export const createProduct = async (req, res) => {
       type_id,
       price,
       description: description || null,
+      image: image || null,
     });
   } catch (err) {
     if (err.code === "ER_DUP_ENTRY") {
@@ -69,11 +70,10 @@ export const createProduct = async (req, res) => {
   }
 };
 
-
 // PUT /api/products/:id
 export const updateProduct = async (req, res) => {
   try {
-    const { brand, name, type_id, price, description } = req.body;
+    const { brand, name, type_id, price, description, image } = req.body;
     const { id } = req.params;
 
     // Validate required fields
@@ -93,9 +93,9 @@ export const updateProduct = async (req, res) => {
     }
 
     // Update the product
-    const [result] = await db.query(
-      "UPDATE products SET name = ?, brand = ?, type_id = ?, price = ?, description = ? WHERE id = ?",
-      [name, brand, type_id, price, description || null, id]
+    await db.query(
+      "UPDATE products SET name = ?, brand = ?, type_id = ?, price = ?, description = ?, image = ? WHERE id = ?",
+      [name, brand, type_id, price, description || null, image || null, id]
     );
 
     res.status(200).json({
@@ -104,13 +104,15 @@ export const updateProduct = async (req, res) => {
       brand,
       type_id,
       price,
-      description: description || null
+      description: description || null,
+      image: image || null,
     });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
 
 // DELETE /api/products/:id
 export const deleteProduct = async (req, res) => {
