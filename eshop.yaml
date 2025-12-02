@@ -5,7 +5,7 @@ info:
   description: REST API for eShop project - types, products, reviews, auth
 
 servers:
-  - url: http://localhost:3000
+  - url: https://frontend-production-0a56.up.railway.app
 
 paths:
   # ----------------- TYPES -----------------
