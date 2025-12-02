@@ -1,22 +1,118 @@
 import jwt from "jsonwebtoken";
 import db from "../db/db.js";
+import crypto from "crypto";
+
 const JWT_SECRET = process.env.JWT_SECRET;
 
-// Verify token
-export const authenticate = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith("Bearer "))
-    return res.status(401).json({ message: "No token provided" });
-
-  const token = authHeader.split(" ")[1];
-  try {
-    const decoded = jwt.verify(token, JWT_SECRET);
-    req.user = decoded; // { id, role }
-    next();
-  } catch (err) {
-    res.status(401).json({ message: "Invalid or expired token" });
-  }
+const generateAccessToken = (user) => {
+  return jwt.sign(
+    { id: user.id, role: user.role },
+    JWT_SECRET,
+    { expiresIn: "5m" }
+  );
 };
+
+const generateRefreshToken = (user) => {
+  return jwt.sign(
+    { id: user.id, type: "refresh" },
+    JWT_SECRET,
+    { expiresIn: "2d" }
+  );
+};
+
+const hashToken = (token) => {
+  return crypto.createHash("sha256").update(token).digest("hex");
+};
+
+export const authenticate = async (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  let accessToken;
+
+  if (authHeader && authHeader.startsWith("Bearer ")) {
+    accessToken = authHeader.split(" ")[1];
+  }
+
+  // 1️⃣ TRY VERIFY ACCESS TOKEN
+  if (accessToken) {
+    try {
+      const decoded = jwt.verify(accessToken, JWT_SECRET);
+      req.user = decoded;
+      return next();
+    } catch (err) {
+      // access token expired → try refresh
+    }
+  }
+
+  // 2️⃣ NO ACCESS TOKEN OR EXPIRED → TRY REFRESH TOKEN
+  const refreshToken = req.cookies.refreshToken;
+
+  if (!refreshToken) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  let decodedRefresh;
+  try {
+    decodedRefresh = jwt.verify(refreshToken, JWT_SECRET);
+  } catch (err) {
+    return res.status(401).json({ message: "Refresh token invalid" });
+  }
+
+  if (decodedRefresh.type !== "refresh") {
+    return res.status(403).json({ message: "Invalid refresh token" });
+  }
+
+  // 3️⃣ Validate refresh token session in DB
+  const hashed = hashToken(refreshToken);
+  const [sessions] = await db.query(
+    `SELECT * FROM sessions 
+     WHERE refresh_token_hash = ? 
+       AND isRevoked = FALSE
+       AND expires_at > NOW()`,
+    [hashed]
+  );
+
+  if (sessions.length === 0) {
+    return res.status(403).json({ message: "Session expired" });
+  }
+
+  const session = sessions[0];
+
+  // 4️⃣ Load user
+  const [users] = await db.query("SELECT * FROM users WHERE id = ?", [
+    session.user_id,
+  ]);
+  const user = users[0];
+
+  // 5️⃣ Rotate refresh token
+  const newRefresh = generateRefreshToken(user);
+  const newHash = hashToken(newRefresh);
+
+  await db.query(
+    `UPDATE sessions 
+       SET refresh_token_hash = ?, expires_at = DATE_ADD(NOW(), INTERVAL 2 DAY)
+     WHERE id = ?`,
+    [newHash, session.id]
+  );
+
+  res.cookie("refreshToken", newRefresh, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "strict",
+    maxAge: 2 * 24 * 60 * 60 * 1000,
+  });
+
+  // 6️⃣ Issue new access token
+  const newAccess = generateAccessToken(user);
+
+  // Set new access token in header so client can use it on API calls
+  res.setHeader("X-Access-Token", newAccess);
+
+  // Attach to request
+  req.user = { id: user.id, role: user.role };
+
+  next();
+};
+
 
 // Role-based authorization
 export const authorize = (...allowedRoles) => {
