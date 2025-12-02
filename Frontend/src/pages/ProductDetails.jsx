@@ -23,7 +23,7 @@ export default function ProductDetails() {
   useEffect(() => {
     setLoading(true);
     api
-      .get(`${API_BASE}/products/${productId}`)
+      .get(`/products/${productId}`)
       .then(res => setProduct(res.data))
       .catch(() => setError("Failed to load product"))
       .finally(() => setLoading(false));
@@ -34,7 +34,7 @@ export default function ProductDetails() {
     if (!product?.type_id) return;
 
     api
-      .get(`${API_BASE}/types/${product.type_id}/products/${productId}/reviews`)
+      .get(`/types/${product.type_id}/products/${productId}/reviews`)
       .then(res => setReviews(res.data || []))
       .catch(err => console.error(err));
   }, [product, productId]);
@@ -48,7 +48,7 @@ export default function ProductDetails() {
     try {
       const token = localStorage.getItem("token");
       const res = await api.post(
-        `${API_BASE}/reviews`,
+        `/reviews`,
         { product_id: Number(productId), comment, rating },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -74,7 +74,7 @@ export default function ProductDetails() {
 
     try {
       const token = localStorage.getItem("token");
-      await api.delete(`${API_BASE}/reviews/${reviewId}`, {
+      await api.delete(`/reviews/${reviewId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setReviews(prev => prev.filter(r => r.id !== reviewId));
@@ -124,7 +124,7 @@ export default function ProductDetails() {
                       try {
                         const token = localStorage.getItem("token");
                         const res = await api.put(
-                          `${API_BASE}/reviews/${r.id}`,
+                          `/reviews/${r.id}`,
                           {
                             product_id: r.product_id,
                             user_id: r.user_id,
