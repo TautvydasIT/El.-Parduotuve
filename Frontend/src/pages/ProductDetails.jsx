@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
+import api from "../Api";
 import { UserContext } from "../context/UserContext";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
@@ -21,7 +22,7 @@ export default function ProductDetails() {
   // Fetch product details
   useEffect(() => {
     setLoading(true);
-    axios
+    api
       .get(`${API_BASE}/products/${productId}`)
       .then(res => setProduct(res.data))
       .catch(() => setError("Failed to load product"))
@@ -32,7 +33,7 @@ export default function ProductDetails() {
   useEffect(() => {
     if (!product?.type_id) return;
 
-    axios
+    api
       .get(`${API_BASE}/types/${product.type_id}/products/${productId}/reviews`)
       .then(res => setReviews(res.data || []))
       .catch(err => console.error(err));
@@ -46,7 +47,7 @@ export default function ProductDetails() {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.post(
+      const res = await api.post(
         `${API_BASE}/reviews`,
         { product_id: Number(productId), comment, rating },
         { headers: { Authorization: `Bearer ${token}` } }
@@ -73,7 +74,7 @@ export default function ProductDetails() {
 
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`${API_BASE}/reviews/${reviewId}`, {
+      await api.delete(`${API_BASE}/reviews/${reviewId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setReviews(prev => prev.filter(r => r.id !== reviewId));
@@ -122,7 +123,7 @@ export default function ProductDetails() {
                       e.preventDefault();
                       try {
                         const token = localStorage.getItem("token");
-                        const res = await axios.put(
+                        const res = await api.put(
                           `${API_BASE}/reviews/${r.id}`,
                           {
                             product_id: r.product_id,
