@@ -11,7 +11,10 @@ import authRoutes from "./routes/authRoutes.js";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "https://frontend-production-0a56.up.railway.app",
+  credentials: true
+}));
 app.use(express.json());
 app.use(cookieParser());
 

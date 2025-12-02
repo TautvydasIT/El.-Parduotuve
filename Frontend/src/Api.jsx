@@ -32,7 +32,6 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       // You could redirect to login or show a modal
       localStorage.removeItem("token");
-      window.location.href = "/login"; // simple example
     }
     return Promise.reject(error);
   }
