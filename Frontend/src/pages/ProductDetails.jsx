@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import api from "../Api";
+import api from "../api";
 import { UserContext } from "../context/UserContext";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
